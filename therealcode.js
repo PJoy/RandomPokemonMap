@@ -2,7 +2,7 @@
  * GAME PARAMS
  */
 
-var TILE_SIZE = 25;
+var TILE_SIZE = 16;
 var TILE_TYPES = [
     'water',
     'trees',
@@ -15,7 +15,6 @@ var count = 0;
 /**
  * GAME FUNCTIONS
  */
-
 
 function getRandomTileType(seed) {
     seed += count;
@@ -61,6 +60,22 @@ function createWorld(canvas, seed) {
     return {grid: grid, tiles: tileArray}
 }
 
+function tileTypeToTexture(tileType) {
+    switch (tileType){
+        case 'water' :
+            return [11,26];
+            break;
+        case 'trees' :
+            return [3,21];
+            break;
+        case 'ground' :
+            return [2,16];
+            break;
+        default :
+            console.log('hey, this tile type doesn\'t exist wtf');
+    }
+}
+/*
 function tileTypeToColor(tileType) {
     switch (tileType){
         case 'water' :
@@ -76,9 +91,12 @@ function tileTypeToColor(tileType) {
             console.log('hey, this tile type doesn\'t exist wtf');
     }
 }
-
+*/
 function drawTile(x,y,tile) {
-    drawRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE, tileTypeToColor(tile))
+    //was used for color
+    //drawRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE, tileTypeToColor(tile))
+    coordsOnSheet = tileTypeToTexture(tile);
+    drawTileFromSheet(coordsOnSheet[0],coordsOnSheet[1],1,1,x*TILE_SIZE,y*TILE_SIZE)
 }
 
 function drawWorld(world) {
@@ -101,6 +119,13 @@ function drawRect(x,y,dx,dy,color) {
     var ctx = canvas.getContext('2d');
     ctx.fillStyle = color;
     ctx.fillRect(x,y,dx,dy);
+}
+
+function drawTileFromSheet(x, y, dx, dy, px, py) {
+    var img = document.getElementById('spritesheet');
+    var ctx = canvas.getContext('2d');
+
+    ctx.drawImage(img,16*x,16*y,16*dx,16*dy,px,py,16*dx,16*dy)
 }
 
 /**
