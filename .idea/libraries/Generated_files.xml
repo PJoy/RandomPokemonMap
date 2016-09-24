@@ -1,0 +1,74 @@
+<component name="libraryTable">
+  <library name="Generated files" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/therealcode-compiled.js" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/subtract-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/stubTrue-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/template-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/toFinite-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/throttle-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/toNumber-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/unescape-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/toLength-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/toString-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/truncate-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/uniqWith-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/iteratee-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/uniqueId-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/isString-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/_arrayMap-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/methodOf-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/_baseKeys-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/isSymbol-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/_baseFill-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/multiply-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/valuesIn-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/overArgs-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/_baseEach-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/property-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/_baseRest-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/padStart-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/_baseMean-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/parseInt-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/_basePick-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/overSome-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/subtract-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/stubTrue-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/template-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/toFinite-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/throttle-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/toNumber-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/unescape-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/toLength-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/toString-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/truncate-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/uniqWith-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/iteratee-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/uniqueId-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/isString-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/_arrayMap-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/methodOf-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/_baseKeys-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/isSymbol-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/_baseFill-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/multiply-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/valuesIn-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/overArgs-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/_baseEach-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/property-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/_baseRest-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/padStart-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/_baseMean-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/parseInt-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/_basePick-compiled.js" />
+      <root url="file://$PROJECT_DIR$/node_modules/babel-cli/node_modules/lodash/overSome-compiled.js" />
+      <root url="file://$PROJECT_DIR$/therealcode-compiled.js" />
+      <root url="file://$PROJECT_DIR$/therealcode-compiled.js" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>
