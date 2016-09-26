@@ -2,15 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11ab5041-5857-458d-b512-d55102a9f2c7" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/deco.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/noise.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/perlin.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/therealcode.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/therealcodeV2.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/tileCoords.json" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sprites.json" afterPath="$PROJECT_DIR$/sprites.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/therealcodeV3.js" afterPath="$PROJECT_DIR$/therealcodeV3.js" />
     </list>
     <ignored path="FRKTL.iws" />
@@ -44,8 +35,8 @@
       <file leaf-file-name="therealcodeV3.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/therealcodeV3.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="331" column="17" selection-start-line="331" selection-start-column="17" selection-end-line="331" selection-end-column="17" />
+            <state relative-caret-position="405">
+              <caret line="358" column="77" selection-start-line="358" selection-start-column="77" selection-end-line="358" selection-end-column="77" />
               <folding>
                 <element signature="n#!!block;n#parseJsonFiles#0" expanded="false" />
               </folding>
@@ -289,12 +280,12 @@
       <workItem from="1474705983492" duration="250000" />
       <workItem from="1474706374132" duration="285000" />
       <workItem from="1474706762331" duration="657000" />
-      <workItem from="1474707956662" duration="72328000" />
+      <workItem from="1474707956662" duration="73302000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="74395000" />
+    <option name="totallyTimeSpent" value="75369000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -588,8 +579,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/therealcodeV3.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="331" column="17" selection-start-line="331" selection-start-column="17" selection-end-line="331" selection-end-column="17" />
+        <state relative-caret-position="405">
+          <caret line="358" column="77" selection-start-line="358" selection-start-column="77" selection-end-line="358" selection-end-column="77" />
           <folding>
             <element signature="n#!!block;n#parseJsonFiles#0" expanded="false" />
           </folding>

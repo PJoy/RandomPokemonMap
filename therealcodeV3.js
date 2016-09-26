@@ -275,7 +275,7 @@ function getTrunkBase(tree) {
 }
 
 function isGrowable(x, y, tree) {
-    if (x > numberOfTilesX*2/3 || y > numberOfTilesY) return false;
+    //if (x > numberOfTilesX*2/3 || y > numberOfTilesY) return false;
     var base = getTrunkBase(tree);
 
     if (getTile(x+base.xMin,y+base.yMin) != undefined && getTile(x+base.xMin,y+base.yMin).type != 'grass') return false;
@@ -316,10 +316,12 @@ function drawBorder() {
 
     ctx.fillStyle = "#575757";
 
-    ctx.fillRect(0,0,800,32);
-    ctx.fillRect(0,800-32,800,32);
-    ctx.fillRect(0,0,32,800);
-    ctx.fillRect(800-32,0,32,800);
+    var x = 10;
+    
+    ctx.fillRect(0,0,800,16*x);
+    ctx.fillRect(0,800-16*x,800,16*x);
+    ctx.fillRect(0,0,16*x,800);
+    ctx.fillRect(800-16*x,0,16*x,800);
 }
 
 sprites = parseJsonFiles();
@@ -329,7 +331,7 @@ $(document).ready(function() {
     //TILE_TYPES = randomTileTypes();
 
 
-    DIVISIONS = 5;
+    DIVISIONS = 10;
     TIME = 1000/60;
 
 var action = function (x,y) {
@@ -353,20 +355,24 @@ var action = function (x,y) {
 
             for (var j=0;j<numberOfTilesY; j++){
                 for (var i=numberOfTilesX-1;i>=0; i--){
-                    //var tree = 'tree'+Math.floor(Math.random()*57+1);
-                    //if ((noise.simplex2(0.1,0.1)+1)/2>0.5)
                     var tree = 'tree'+Math.floor(((noise.simplex2((getTile(i,j).x+2*Math.ceil(x/DIVISIONS) +999)*999, (getTile(i,j).y+2*y+999)*999)+1)/2)*57+1);
-                    if (noise.simplex2(i+2*Math.ceil(x/DIVISIONS), j+2*y)>0.7)drawTree(i,j,tree);
+                    if (noise.simplex2(i+2*Math.ceil(x/DIVISIONS), j+2*y)>0.6) drawTree(i,j,tree);
                 }
             }
+
+            /*for (var i = 0; i < numberOfTilesX; i++ ){
+                for (var j = 0; j < numberOfTilesY; j ++){
+                    drawTree(i,j,'tree1');
+                }
+            }*/
 
             drawBorder();
         }, TIME);
 
 
-    x++;y++;
+    x++;
 
-    setTimeout(function(){action(x,1);}, TIME);
+    setTimeout(function(){action(x,y);}, TIME);
 
 };
 
