@@ -4,6 +4,34 @@
 
 var TILE_SIZE = 16;
 
+function Perlin(seed,px,py) {
+    noise.seed(seed);
+    var canvas = document.getElementById('noiseCanvas');
+    canvas.width = 25;
+    canvas.height = 25;
+    var ctx = canvas.getContext('2d');
+    var image = ctx.createImageData(canvas.width, canvas.height);
+    var data = image.data;
+    for (var x = 0; x < canvas.width; x++) {
+        //if (x % 100 == 0) {
+        //  noise.seed(Math.random());
+        //}
+        for (var y = 0; y < canvas.height; y++) {
+            var value = Math.abs((noise.perlin2((x + px) / 10, (y + py) / 10)+1)/2);
+            value *= 256;
+            var cell = (x + y * canvas.width) * 4;
+            data[cell] = data[cell + 1] = data[cell + 2] = value;
+            data[cell] += Math.max(0, (25 - value) * 8);
+            data[cell + 3] = 255; // alpha.
+        }
+    }
+
+    ctx.fillColor = 'black';
+    ctx.fillRect(0, 0, 100, 100);
+    ctx.putImageData(image, 0, 0);
+}
+
+
 /**
  * Generate Perlin noise maps
  */
@@ -23,6 +51,7 @@ function generateNoiseMap(w, h) {
 
     var max = Math.max.apply(null, noiseValues);
     var min = Math.min.apply(null, noiseValues);
+    max = 720;
 
     var noiseValuesNormalized = [];
 
@@ -32,18 +61,24 @@ function generateNoiseMap(w, h) {
         }
     }
 
+    MAX.push(max);
+
     return noiseValuesNormalized;
 }
+
+MAX = [];
 
 function drawTileFromSheet(x, y, dx, dy, px, py) {
     var img = document.getElementById('spritesheet');
     var ctx = canvas.getContext('2d');
 
-    ctx.drawImage(img,16*x,16*y,16*dx,16*dy,px,py,16*dx,16*dy)
+    ctx.drawImage(img,16*x,16*y,16*dx,16*dy,px-OFFSET*TILE_SIZE*2,py,16*dx,16*dy)
 }
 
 function drawTile(x,y,type) {
     var  sprite = sprites[type];
+
+    if (sprite == undefined) console.log ("sprite undefined for type "+type+" (coords : "+x+", "+y+")");
 
     if (sprite.dim[2] == undefined ) {
         for (var i = 0; i < sprite.dim[0]; i++){
@@ -57,17 +92,18 @@ function drawTile(x,y,type) {
         drawTileFromSheet (sprite.start[0],sprite.start[1],1,1,x*TILE_SIZE,y*TILE_SIZE)
     }
 }
+backgrounds = [];
 
 function parseJsonFiles() {
-    var backgrounds = [];
+    backgrounds = [];
     var sprites = [];
 
-     $.getJSON('sprites.json',null, function(json){
-         for (var tileName in json){
-             sprites[tileName] = json[tileName];
-             backgrounds.push(tileName);
-         }
-     });
+    $.getJSON('sprites.json',null, function(json){
+        for (var tileName in json){
+            sprites[tileName] = json[tileName];
+            backgrounds.push(tileName);
+        }
+    });
 
     $.getJSON('trees.json', null, function(json){
         var treeNumber = 1;
@@ -101,6 +137,7 @@ function parseJsonFiles() {
                     backgrounds.forEach(function (bgName) {
                         if (type.replace('*', bgName) != 'grass-rock'
                             && type.replace('*', bgName) != 'grass-sand'
+                            && type.replace('*', bgName) != 'sea1-grass'
                             && type.replace('*', bgName) != 'rock-snow') {
                             for (var coords in json.coords) {
                                 sprites[type.replace('*', bgName) + coords] = {
@@ -151,7 +188,6 @@ function generateTileMap(w, h) {
 }
 
 TILE_TYPES = [
-    'sea3',
     'sea2',
     'sea1',
     'sand',
@@ -167,9 +203,11 @@ function drawTiles(tilesArray) {
 }
 
 function getTile(x, y) {
-    if (x >= 0 && x < numberOfTilesX && y >= 0 && y < numberOfTilesY) return {x: x, y: y, type: tileMap[y + x * numberOfTilesX].type}
+    if (x >= 0 && x < numberOfTilesX && y >= 0 && y < numberOfTilesY) return {x: x, y: y, type: tileMap[y + x * numberOfTilesX].type};
+    //else return {x: x, y: y, type: 'water4'};
 }
 
+undrawable = [];
 function drawEdges(x, y) {
     var tile = getTile(x,y);
     var edges = '';
@@ -209,6 +247,8 @@ function drawEdges(x, y) {
             edges = 'S+W';
             edgeType = getTile(tile.x - 1, tile.y + 1).type;
         }
+    } else {
+        undrawable.push([tile.x, tile.y]);
     }
 
     if ( edges != ''){
@@ -225,45 +265,111 @@ function getTrunkBase(tree) {
     var sprite = sprites[tree];
     var base = {};
 
-    base.xMin = (Math.floor(sprite.dim[0]/2));
-    base.xMax = (Math.ceil(sprite.dim[0]/2));
-    base.yMin = (Math.floor(sprite.dim[1]*4/5));
-    base.yMax = (Math.ceil(sprite.dim[1]*4/5));
+    base.xMin = (Math.floor(sprite.dim[0]/2-0.01));
+    base.xMax = (Math.floor(sprite.dim[0]/2+0.01));
+    //base.xMax = (Math.ceil(sprite.dim[0]/2));
+    base.yMin = (Math.floor(sprite.dim[1]*3/4-0.01));
+    base.yMax = (Math.floor(sprite.dim[1]*3/4+0.01));
 
     return base
 }
 
 function isGrowable(x, y, tree) {
+    if (x > numberOfTilesX*2/3 || y > numberOfTilesY) return false;
     var base = getTrunkBase(tree);
 
     if (getTile(x+base.xMin,y+base.yMin) != undefined && getTile(x+base.xMin,y+base.yMin).type != 'grass') return false;
     if (getTile(x+base.xMin,y+base.yMax) != undefined && getTile(x+base.xMin,y+base.yMax).type != 'grass') return false;
     if (getTile(x+base.xMax,y+base.yMin) != undefined && getTile(x+base.xMax,y+base.yMin).type != 'grass') return false;
     if (getTile(x+base.xMax,y+base.yMax) != undefined && getTile(x+base.xMax,y+base.yMax).type != 'grass') return false;
+
+
+    for (var i = base.xMin-2; i<=base.xMax+2; i++){
+        for (var j = base.yMin-2; j<=base.yMax+2; j++){
+            undrawable.push([x+i,y+j])
+        }
+    }
+    undrawable.push([x+base.xMin,y+base.yMin]);
+    undrawable.push([x+base.xMin,y+base.yMax]);
+    undrawable.push([x+base.xMax,y+base.yMin]);
+    undrawable.push([x+base.xMax,y+base.yMax]);
+
     return true;
 }
 
+function drawTree(x, y, tree) {
+    if (isGrowable(x,y,tree)) drawTile(x,y,tree);
+}
+
+function randomTileTypes() {
+    var types = [];
+    var x = Math.floor( 2 + Math.random()*6);
+
+    for (var i = 0; i < x; i++) types.push(backgrounds[Math.floor(Math.random()*(backgrounds.length-1))])
+
+    return types;
+}
+
+function drawBorder() {
+    var img = document.getElementById('spritesheet');
+    var ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = "#575757";
+
+    ctx.fillRect(0,0,800,32);
+    ctx.fillRect(0,800-32,800,32);
+    ctx.fillRect(0,0,32,800);
+    ctx.fillRect(800-32,0,32,800);
+}
+
+sprites = parseJsonFiles();
+
 $(document).ready(function() {
 
-    sprites = parseJsonFiles();
+    //TILE_TYPES = randomTileTypes();
 
-    setTimeout(function(){
-        tileMap = generateTileMap(numberOfTilesX, numberOfTilesY);
-        drawTiles(tileMap);
 
-        for(var i=0; i<numberOfTilesX-0; i++){
-            for(var j=0; j<numberOfTilesY-0; j++){
-                drawEdges(i,j);
+    DIVISIONS = 5;
+    TIME = 1000/60;
+
+var action = function (x,y) {
+
+    OFFSET = (x%DIVISIONS)/DIVISIONS;
+
+        setTimeout(function () {
+
+            Perlin(0.11,Math.ceil(x/DIVISIONS),y);
+
+            tileMap = generateTileMap(numberOfTilesX, numberOfTilesY);
+            drawTiles(tileMap);
+
+            for(var i=0; i<numberOfTilesX-0; i++){
+                for(var j=0; j<numberOfTilesY-0; j++){
+                    //if (i< numberOfTilesX*3/4+numberOfTilesX/4*(noise.simplex2(j,0)+1)/2){
+                    drawEdges(i,j);
+                    //}
+                }
             }
-        }
 
-        for (var j=0;j<numberOfTilesY; j++){
-            for (var i=numberOfTilesX-1;i>=0; i--){
-                var tree = 'tree'+Math.floor(Math.random()*57+1);
-                if (isGrowable(i,j,tree) && Math.random()>0.975) drawTile(i,j,tree);
+            for (var j=0;j<numberOfTilesY; j++){
+                for (var i=numberOfTilesX-1;i>=0; i--){
+                    //var tree = 'tree'+Math.floor(Math.random()*57+1);
+                    //if ((noise.simplex2(0.1,0.1)+1)/2>0.5)
+                    var tree = 'tree'+Math.floor(((noise.simplex2((getTile(i,j).x+2*Math.ceil(x/DIVISIONS) +999)*999, (getTile(i,j).y+2*y+999)*999)+1)/2)*57+1);
+                    if (noise.simplex2(i+2*Math.ceil(x/DIVISIONS), j+2*y)>0.7)drawTree(i,j,tree);
+                }
             }
-        }
 
-    }, 1500);
+            drawBorder();
+        }, TIME);
+
+
+    x++;y++;
+
+    setTimeout(function(){action(x,1);}, TIME);
+
+};
+
+    action(13,1);
 
 });
