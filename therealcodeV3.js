@@ -10,15 +10,7 @@ var TILE_SIZE = 16;
 
 function generateNoiseMap(w, h) {
     var noiseCanvas = document.getElementById('noiseCanvas');
-    noiseCanvas.width = w;
-    noiseCanvas.height = h;
-
     var ctxN = noiseCanvas.getContext('2d');
-    var img2 = document.getElementById('noise');
-
-    factor2 =  Math.random();
-
-    ctxN.drawImage(img2, 0, 0, img2.width*factor2, img2.height*factor2, 0, 0, w, h);
 
     var noiseValues = [];
 
@@ -34,10 +26,9 @@ function generateNoiseMap(w, h) {
 
     var noiseValuesNormalized = [];
 
-    var factor = Math.random()/2+0.5;
     for (var i = 0; i < w; i++) {
         for (var j = 0; j < h; j++) {
-            noiseValuesNormalized.push((noiseValues[i*w+j]-min)/(max-min)*factor)
+            noiseValuesNormalized.push((noiseValues[i*w+j]-min)/(max-min))
         }
     }
 
@@ -129,15 +120,13 @@ function generateTileMap(w, h) {
 }
 
 TILE_TYPES = [
+    'sea3',
+    'sea2',
+    'sea1',
+    'sand',
+    'grass',
+    'rock',
     'snow',
-    'rock',
-    'rock',
-    'grass',
-    'grass',
-    'sand',
-    'sand',
-    'water2',
-    'water2',
 ];
 
 function drawTiles(tilesArray) {
@@ -192,7 +181,6 @@ function drawEdges(x, y) {
     }
 
     if ( edges != ''){
-        console.log(tile.type+'-'+edgeType+edges);
         if (sprites[tile.type+'-'+edgeType+edges] != undefined) drawTile(x,y,tile.type+'-'+edgeType+edges);
     }
 }
@@ -204,6 +192,7 @@ numberOfTilesY = canvas.height/TILE_SIZE;
 
 
 $(document).ready(function() {
+
     sprites = parseJsonFiles();
 
     setTimeout(function(){
@@ -215,6 +204,6 @@ $(document).ready(function() {
                 drawEdges(i,j);
             }
         }
-    }, 500);
+    }, 1000);
 
 });
