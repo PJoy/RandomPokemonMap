@@ -16,7 +16,9 @@ function generateNoiseMap(w, h) {
     var ctxN = noiseCanvas.getContext('2d');
     var img2 = document.getElementById('noise');
 
-    ctxN.drawImage(img2, 0, 0, img2.width, img2.height, 0, 0, w, h);
+    factor2 =  Math.random();
+
+    ctxN.drawImage(img2, 0, 0, img2.width*factor2, img2.height*factor2, 0, 0, w, h);
 
     var noiseValues = [];
 
@@ -32,9 +34,10 @@ function generateNoiseMap(w, h) {
 
     var noiseValuesNormalized = [];
 
+    var factor = Math.random()/2+0.5;
     for (var i = 0; i < w; i++) {
         for (var j = 0; j < h; j++) {
-            noiseValuesNormalized.push((noiseValues[i*w+j]-min)/(max-min))
+            noiseValuesNormalized.push((noiseValues[i*w+j]-min)/(max-min)*factor)
         }
     }
 
