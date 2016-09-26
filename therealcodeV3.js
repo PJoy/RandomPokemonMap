@@ -63,29 +63,36 @@ function parseJsonFiles() {
          }
      });
 
-     $.getJSON('borderSprites.json',null, function(json){
-         for (var type in json.type){
-             if (!type.includes('*')) {
-                 for (var coords in json.coords){
-                     sprites[type+coords] = {dim: [1,1],
-                         start: [json.type[type][0]+json.coords[coords][0],json.type[type][1]+json.coords[coords][1]]}
-                 }
-             } else {
-                 backgrounds.forEach(function(bgName){
-                     if (type.replace('*',bgName) != 'grass-rock'
-                         && type.replace('*',bgName) != 'grass-sand'
-                         && type.replace('*',bgName) != 'rock-snow' ){
-                         for (var coords in json.coords){
-                             sprites[type.replace('*',bgName)+coords] = {dim: [1,1,2],
-                                 bg: sprites[bgName].start,
-                                 start: [json.type[type][0]+json.coords[coords][0],json.type[type][1]+json.coords[coords][1]]}
-                         }
+    setTimeout(function() {
 
-                     }
-                 })
-             }
-         }
-     });
+        $.getJSON('borderSprites.json', null, function (json) {
+            for (var type in json.type) {
+                if (!type.includes('*')) {
+                    for (var coords in json.coords) {
+                        sprites[type + coords] = {
+                            dim: [1, 1],
+                            start: [json.type[type][0] + json.coords[coords][0], json.type[type][1] + json.coords[coords][1]]
+                        }
+                    }
+                } else {
+                    backgrounds.forEach(function (bgName) {
+                        if (type.replace('*', bgName) != 'grass-rock'
+                            && type.replace('*', bgName) != 'grass-sand'
+                            && type.replace('*', bgName) != 'rock-snow') {
+                            for (var coords in json.coords) {
+                                sprites[type.replace('*', bgName) + coords] = {
+                                    dim: [1, 1, 2],
+                                    bg: sprites[bgName].start,
+                                    start: [json.type[type][0] + json.coords[coords][0], json.type[type][1] + json.coords[coords][1]]
+                                }
+                            }
+
+                        }
+                    })
+                }
+            }
+        });
+    }, 500);
 
     return sprites;
 }
@@ -204,6 +211,6 @@ $(document).ready(function() {
                 drawEdges(i,j);
             }
         }
-    }, 1000);
+    }, 1500);
 
 });
