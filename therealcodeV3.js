@@ -45,7 +45,13 @@ function drawTileFromSheet(x, y, dx, dy, px, py) {
 function drawTile(x,y,type) {
     var  sprite = sprites[type];
 
-    if (sprite.dim[2] == undefined ) drawTileFromSheet (sprite.start[0],sprite.start[1],1,1,x*TILE_SIZE,y*TILE_SIZE);
+    if (sprite.dim[2] == undefined ) {
+        for (var i = 0; i < sprite.dim[0]; i++){
+            for (var j = 0; j < sprite.dim[1]; j++){
+                drawTileFromSheet (sprite.start[0]+i,sprite.start[1]+j,1,1,(x+i)*TILE_SIZE,(y+j)*TILE_SIZE);
+            }
+        }
+    }
     else {
         drawTileFromSheet (sprite.bg[0],sprite.bg[1],1,1,x*TILE_SIZE,y*TILE_SIZE);
         drawTileFromSheet (sprite.start[0],sprite.start[1],1,1,x*TILE_SIZE,y*TILE_SIZE)
@@ -62,6 +68,23 @@ function parseJsonFiles() {
              backgrounds.push(tileName);
          }
      });
+
+    $.getJSON('trees.json', null, function(json){
+        var treeNumber = 1;
+        for (var range in json){
+            var i = 0;
+            while (json[range].isTree[i] != undefined){
+                if (json[range].isTree[i] == 1){
+                    sprites['tree'+treeNumber] = {
+                        dim: json[range].dim,
+                        start: [json[range].start[0] + i*json[range].dim[0], json[range].start[1]]
+                    };
+                    treeNumber++;
+                }
+                i++;
+            }
+        }
+    });
 
     setTimeout(function() {
 
@@ -92,6 +115,7 @@ function parseJsonFiles() {
                 }
             }
         });
+
     }, 500);
 
     return sprites;
@@ -197,6 +221,27 @@ canvas = document.getElementById('C');
 numberOfTilesX = canvas.width/TILE_SIZE;
 numberOfTilesY = canvas.height/TILE_SIZE;
 
+function getTrunkBase(tree) {
+    var sprite = sprites[tree];
+    var base = {};
+
+    base.xMin = (Math.floor(sprite.dim[0]/2));
+    base.xMax = (Math.ceil(sprite.dim[0]/2));
+    base.yMin = (Math.floor(sprite.dim[1]*4/5));
+    base.yMax = (Math.ceil(sprite.dim[1]*4/5));
+
+    return base
+}
+
+function isGrowable(x, y, tree) {
+    var base = getTrunkBase(tree);
+
+    if (getTile(x+base.xMin,y+base.yMin) != undefined && getTile(x+base.xMin,y+base.yMin).type != 'grass') return false;
+    if (getTile(x+base.xMin,y+base.yMax) != undefined && getTile(x+base.xMin,y+base.yMax).type != 'grass') return false;
+    if (getTile(x+base.xMax,y+base.yMin) != undefined && getTile(x+base.xMax,y+base.yMin).type != 'grass') return false;
+    if (getTile(x+base.xMax,y+base.yMax) != undefined && getTile(x+base.xMax,y+base.yMax).type != 'grass') return false;
+    return true;
+}
 
 $(document).ready(function() {
 
@@ -211,6 +256,14 @@ $(document).ready(function() {
                 drawEdges(i,j);
             }
         }
+
+        for (var j=0;j<numberOfTilesY; j++){
+            for (var i=numberOfTilesX-1;i>=0; i--){
+                var tree = 'tree'+Math.floor(Math.random()*57+1);
+                if (isGrowable(i,j,tree) && Math.random()>0.975) drawTile(i,j,tree);
+            }
+        }
+
     }, 1500);
 
 });
