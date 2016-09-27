@@ -2,6 +2,9 @@
  * Created by pierreportejoie on 26/09/2016.
  */
 
+/**
+ * Generate Perlin Noise
+ */
 var TILE_SIZE = 16;
 
 function Perlin(seed,px,py) {
@@ -33,7 +36,7 @@ function Perlin(seed,px,py) {
 
 
 /**
- * Generate Perlin noise maps
+ * Return array of noise values from Perlin image
  */
 
 function generateNoiseMap(w, h) {
@@ -61,13 +64,12 @@ function generateNoiseMap(w, h) {
         }
     }
 
-    MAX.push(max);
-
     return noiseValuesNormalized;
 }
 
-MAX = [];
-
+/**
+ * Draw from sprite sheet to canvas
+ */
 function drawTileFromSheet(x, y, dx, dy, px, py) {
     var img = document.getElementById('spritesheet');
     var ctx = canvas.getContext('2d');
@@ -75,6 +77,9 @@ function drawTileFromSheet(x, y, dx, dy, px, py) {
     ctx.drawImage(img,16*x,16*y,16*dx,16*dy,px-OFFSET*TILE_SIZE*2,py,16*dx,16*dy)
 }
 
+/**
+ * Draw full sprite
+ */
 function drawTile(x,y,type) {
     var  sprite = sprites[type];
 
@@ -87,6 +92,7 @@ function drawTile(x,y,type) {
             }
         }
     }
+    // sometimes sprite in composed of multiple sprites stacked onto each other
     else {
         drawTileFromSheet (sprite.bg[0],sprite.bg[1],1,1,x*TILE_SIZE,y*TILE_SIZE);
         drawTileFromSheet (sprite.start[0],sprite.start[1],1,1,x*TILE_SIZE,y*TILE_SIZE)
@@ -94,6 +100,12 @@ function drawTile(x,y,type) {
 }
 backgrounds = [];
 
+/**
+ * parse json files mapping sprite sheet
+ * sprites.json --> background
+ * trees.json --> ...trees
+ * borderSprites.json --> boundaries between different backgrounds (ie, edges, ...)
+ */
 function parseJsonFiles() {
     backgrounds = [];
     var sprites = [];
@@ -165,6 +177,9 @@ function setTile(x,y,z,type) {
     ctx.drawImage(img,16*x,16*y,16*dx,16*dy,px,py,16*dx,16*dy)
 }
 
+/**
+ * get random backgound tile type
+ */
 function seedToType(seed) {
     var tileType;
     tileType = TILE_TYPES[Math.floor(seed * TILE_TYPES.length)];
@@ -174,6 +189,9 @@ function seedToType(seed) {
     return tileType;
 }
 
+/**
+ * generate background
+ */
 function generateTileMap(w, h) {
     var noiseMap = generateNoiseMap(w, h);
     var tileMap = [];
@@ -208,6 +226,9 @@ function getTile(x, y) {
 }
 
 undrawable = [];
+/**
+ * draw background limit conditions
+ */
 function drawEdges(x, y) {
     var tile = getTile(x,y);
     var edges = '';
@@ -261,6 +282,9 @@ canvas = document.getElementById('C');
 numberOfTilesX = canvas.width/TILE_SIZE;
 numberOfTilesY = canvas.height/TILE_SIZE;
 
+/**
+ * get coords of tree base to know if we can draw here and to render the zone undrawable in the future if we can
+ */
 function getTrunkBase(tree) {
     var sprite = sprites[tree];
     var base = {};
@@ -274,6 +298,11 @@ function getTrunkBase(tree) {
     return base
 }
 
+/**
+ * we can't draw on edges
+ * we can't draw on tree bases
+ * we can't draw on anything but grass (for now)
+ */
 function isGrowable(x, y, tree) {
     //if (x > numberOfTilesX*2/3 || y > numberOfTilesY) return false;
     var base = getTrunkBase(tree);
@@ -310,6 +339,9 @@ function randomTileTypes() {
     return types;
 }
 
+/**
+ * hide ugly borders where unwanted stuff happens
+ */
 function drawBorder() {
     var img = document.getElementById('spritesheet');
     var ctx = canvas.getContext('2d');
@@ -328,11 +360,15 @@ sprites = parseJsonFiles();
 
 $(document).ready(function() {
 
-    //TILE_TYPES = randomTileTypes();
+    /**
+     * randomize everything !!!!
+     */
+//    TILE_TYPES = randomTileTypes();
 
 
     DIVISIONS = 10;
     TIME = 1000/60;
+    SEED = Math.random();
 
 var action = function (x,y) {
 
@@ -340,7 +376,7 @@ var action = function (x,y) {
 
         setTimeout(function () {
 
-            Perlin(0.11,Math.ceil(x/DIVISIONS),y);
+            Perlin(SEED,Math.ceil(x/DIVISIONS),y);
 
             tileMap = generateTileMap(numberOfTilesX, numberOfTilesY);
             drawTiles(tileMap);
@@ -379,3 +415,5 @@ var action = function (x,y) {
     action(13,1);
 
 });
+
+//TODO : BLUR :::::: https://twitter.com/retronator/status/780487764538118144
