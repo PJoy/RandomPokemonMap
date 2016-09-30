@@ -366,7 +366,7 @@ $(document).ready(function() {
 //    TILE_TYPES = randomTileTypes();
 
 
-    DIVISIONS = 10;
+    DIVISIONS = 10; //todo try 16, 32
     TIME = 1000/60;
     SEED = Math.random();
 
