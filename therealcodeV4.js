@@ -2,7 +2,7 @@
  * Created by pierreportejoie on 30/09/2016.
  */
 
-function generateNoiseMap(seed, width, height, xOffset, yOffset) {
+/*function generateNoiseMap(seed, width, height, xOffset, yOffset) {
 
 }
 
@@ -26,12 +26,21 @@ function generateMap() {
 }
 function drawMap(map) {
 
-}
+}*/
 
 //CONF CONSTS
-
+TILE_SIZE = 16;
+TILE_TYPES = [
+    'water',
+    'grass',
+    'rock',
+    'rock',
+    'rock',
+    'snow'
+];
+WIDTH = 800;
+HEIGHT = 800;
+GRID = [];
 
 $(document).ready(function() {
-    var map = generateMap();
-    drawMap(map);
 });
