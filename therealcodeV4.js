@@ -84,12 +84,13 @@ function generateMap() {
 }
 
 function drawMap(map) {
+    var zMax = Math.ceil(map.length/WIDTH/TILE_SIZE/HEIGHT/TILE_SIZE);
+
     for ( var i = 0; i < WIDTH/TILE_SIZE; i++){
         for ( var j = 0; j < HEIGHT/TILE_SIZE; j++){
-            // FAKKAF M8
-            //for ( var k = 0; k < Math.floor(map.length()/WIDTH/TILE_SIZE*); k++){
+            for ( var k = 0; k < zMax; k++){
                 drawTile(i, j, TILE_TYPES[map[i + WIDTH/TILE_SIZE * j]])
-            //}
+            }
         }
     }
 }
