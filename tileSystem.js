@@ -113,31 +113,25 @@ var backgroundTiles =
 var borderTiles =
 {
     "coords":{
-        "NW": [0,0],
-        "N+W": [1,4],
+        "N+W": [0,0],
+        "NW": [1,4],
         "N": [1,0],
-        "NE": [2,0],
-        "N+E": [0,4],
+        "N+E": [2,0],
+        "NE": [0,4],
         "E": [2,1],
-        "SE": [2,2],
-        "S+E": [0,3],
+        "S+E": [2,2],
+        "SE": [0,3],
         "S": [1,2],
-        "SW": [0,2],
-        "S+W": [1,3],
+        "S+W": [0,2],
+        "SW": [1,3],
         "W": [0,1]
     },
     "type":{
         "ground-grass": [1,15],
-        "*-grass": [4,15],
-        "*-grass2": [7,15],
-        "*-bgrass2": [10,15],
         "ground2-bgrass2": [13,15],
         "dground-grass": [16,15],
-        "snow1-*": [19,15],
         "rock4-rock6": [22,15],
         "rock5-rock6": [25,15],
-        "snow2-*": [28,15],
-        "snow3-*": [31,15],
         "tile1-tile2": [34,15],
         "tile3-tile4": [37,15],
         "sand-sea2": [1,25],
@@ -147,19 +141,25 @@ var borderTiles =
         "sand2-sea5": [13,25],
         "sand2-sea4": [16,25],
         "sea5-sea4": [19,25],
-        "water2-*": [39,25],
         "water-grass": [45,25],
+        "snow1-*": [19,15],
+        "snow2-*": [28,15],
+        "snow3-*": [31,15],
+        "water2-*": [39,25],
         "water3-*": [62,25],
         "water4-*": [66,25],
         "water5-*": [70,25],
         "sand3-*": [1,32],
         "snow-*": [4,32],
         "rock-*": [7,32],
-        "*-*": [10,32],
         "grass-*": [13,32],
         "sand4-*": [16,32],
         "rock2-*": [19,32],
-        "rock3-*": [22,32]
+        "rock3-*": [22,32],
+        "*-grass": [4,15],
+        "*-grass2": [7,15],
+        "*-bgrass2": [10,15],
+        "*-$": [10,32]
     }
 };
 
@@ -209,6 +209,51 @@ for (var tileName in backgroundTiles){
     backgrounds.push(tileName);
 }
 
+for (var borderType in borderTiles.type){
+    if ( !borderType.includes('*') ){
+        for ( var dir in borderTiles.coords){
+            sprites[borderType+dir] = {
+                dim: [1, 1],
+                start: [borderTiles.type[borderType][0] + borderTiles.coords[dir][0],
+                    borderTiles.type[borderType][1] + borderTiles.coords[dir][1]]
+            }
+        }
+    } else if ( !borderType.includes('$') ) {
+        backgrounds.forEach(function(bgName){
+            newborderType = borderType.replace('*',bgName);
+
+            for ( var dir in borderTiles.coords){
+                if (sprites[newborderType+dir] == undefined){
+                    sprites[newborderType+dir] = {
+                        dim: [1, 1, 2],
+                        bg: sprites[bgName].start,
+                        start: [borderTiles.type[borderType][0] + borderTiles.coords[dir][0],
+                            borderTiles.type[borderType][1] + borderTiles.coords[dir][1]]
+                    }
+                }
+            }
+        })
+    } else {
+        backgrounds.forEach(function(bgName){
+            newborderType = borderType.replace('*',bgName);
+            backgrounds.forEach(function(bgName2) {
+                newborderType2 = newborderType.replace('$',bgName2);
+                console.log(newborderType2);
+                for ( var dir in borderTiles.coords){
+                    if (sprites[newborderType2+dir] == undefined){
+                        sprites[newborderType2+dir] = {
+                            dim: [1, 1, 2],
+                            bg: sprites[bgName].start,
+                            start: [borderTiles.type[borderType][0] + borderTiles.coords[dir][0],
+                                borderTiles.type[borderType][1] + borderTiles.coords[dir][1]]
+                        }
+                    }
+                }
+            })
+        })
+    }
+}
+
 var treeNumber = 1;
 for (var range in trees){
     var i = 0;
@@ -224,7 +269,7 @@ for (var range in trees){
     }
 }
 
-for (var type in borderTiles.type) {
+/*for (var type in borderTiles.type) {
     if (!type.includes('*')) {
         for (var coords in borderTiles.coords) {
             sprites[type + coords] = {
@@ -243,7 +288,7 @@ for (var type in borderTiles.type) {
             }
         })
     }
-}
+}*/
 
 /**
  * X = 0 --> left
@@ -251,30 +296,32 @@ for (var type in borderTiles.type) {
  * Z = 0 --> background
  */
 
-function setTile(x, y, z, val, w = WIDTH/TILE_SIZE, h = HEIGHT/TILE_SIZE, arr = GRID) {
+function setTile(x, y, z, arr, val, w = WIDTH/TILE_SIZE, h = HEIGHT/TILE_SIZE) {
     arr[x + w * y + w * h * z] = val;
 }
 
-function getTile(x, y, z, w = WIDTH/TILE_SIZE, h = HEIGHT/TILE_SIZE, arr = GRID) {
+function getTile(x, y, z, arr, w = WIDTH/TILE_SIZE, h = HEIGHT/TILE_SIZE) {
     return arr[x + w * y + w * h * z]
 }
 
 function drawTile(x, y, tile) {
     sprite = sprites[tile];
-    /*console.log(tileSheet);
-    console.log(sprite.start[0]);
-    console.log(sprite.start[1]);
-    console.log(sprite.dim[0] * TILE_SIZE);
-    console.log(sprite.dim[1] * TILE_SIZE);
-    console.log(x * TILE_SIZE);
-    console.log(y * TILE_SIZE);
-    console.log(sprite.dim[0] * TILE_SIZE);
-    console.log(sprite.dim[1] * TILE_SIZE);*/
     if (sprite != undefined){
-        ctx.drawImage(tileSheet, sprite.start[0] * TILE_SIZE, sprite.start[1] * TILE_SIZE,
+        if ( sprite.dim[2] == undefined ){
+            ctx.drawImage(tileSheet, sprite.start[0] * TILE_SIZE, sprite.start[1] * TILE_SIZE,
             sprite.dim[0] * TILE_SIZE, sprite.dim[1] * TILE_SIZE,
             x * TILE_SIZE, y * TILE_SIZE,
             sprite.dim[0] * TILE_SIZE, sprite.dim[1] * TILE_SIZE );
+        } else {
+            ctx.drawImage(tileSheet, sprite.bg[0] * TILE_SIZE, sprite.bg[1] * TILE_SIZE,
+                sprite.dim[0] * TILE_SIZE, sprite.dim[1] * TILE_SIZE,
+                x * TILE_SIZE, y * TILE_SIZE,
+                sprite.dim[0] * TILE_SIZE, sprite.dim[1] * TILE_SIZE );
+            ctx.drawImage(tileSheet, sprite.start[0] * TILE_SIZE, sprite.start[1] * TILE_SIZE,
+                sprite.dim[0] * TILE_SIZE, sprite.dim[1] * TILE_SIZE,
+                x * TILE_SIZE, y * TILE_SIZE,
+                sprite.dim[0] * TILE_SIZE, sprite.dim[1] * TILE_SIZE );
+        }
     } else {
         console.log('tile '+ tile + ' doesn\'t exist !')
     }
