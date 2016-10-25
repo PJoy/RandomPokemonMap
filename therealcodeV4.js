@@ -116,7 +116,13 @@ function generateBorders(grid) {
 }
 
 function generateXLDetails(grid) {
+    for ( var i = 0; i < WIDTH / TILE_SIZE; i++ ) {
+        for ( var j = 0; j < HEIGHT / TILE_SIZE; j++ ) {
+            if ( noise.simplex2(i,j) > 0.9 ) setTile(i,j,2,grid,'decoration'+Math.floor(Math.random()*62))
+        }
+    }
 
+    return grid
 }
 
 function generateXSDetails(grid) {
@@ -124,7 +130,7 @@ function generateXSDetails(grid) {
 }
 
 function generateDetails(grid) {
-    generateXLDetails();
+    generateXLDetails(grid);
     generateXSDetails();
 
     return grid;
@@ -150,8 +156,10 @@ function getBorderName(bTile){
     //particular cases
     if (TILE_TYPES[z1]+'-'+TILE_TYPES[z2] == 'sea1-sea2') return;
     if (TILE_TYPES[z1]+'-'+TILE_TYPES[z2] == 'sea2-sea3') return;
+    if (TILE_TYPES[z1]+'-'+TILE_TYPES[z2] == 'grass-sand') return;
     if (TILE_TYPES[z1]+'-'+TILE_TYPES[z2] == 'sea2-sea1') return TILE_TYPES[z1]+'-'+TILE_TYPES[z2]+dir;
     if (TILE_TYPES[z1]+'-'+TILE_TYPES[z2] == 'sea3-sea2') return TILE_TYPES[z1]+'-'+TILE_TYPES[z2]+dir;
+    if (TILE_TYPES[z1]+'-'+TILE_TYPES[z2] == 'sand-grass') return TILE_TYPES[z1]+'-'+TILE_TYPES[z2]+dir;
     if (z2 > z1) return;
 
     return TILE_TYPES[z1]+'-'+TILE_TYPES[z2]+dir;
@@ -160,31 +168,35 @@ function getBorderName(bTile){
 function drawMap(map) {
     var zMax = Math.ceil(map.length/WIDTH/TILE_SIZE/HEIGHT/TILE_SIZE);
 
-    for ( var i = 0; i < WIDTH/TILE_SIZE; i++){
-        for ( var j = 0; j < HEIGHT/TILE_SIZE; j++){
+    for ( var i = 1; i < WIDTH/TILE_SIZE-1; i++){
+        for ( var j = 1; j < HEIGHT/TILE_SIZE-1; j++){
             drawTile(i, j, TILE_TYPES[map[i + WIDTH/TILE_SIZE * j]]);
             var bn = getBorderName(getTile(i,j,1,map));
             if ( bn != undefined ) drawTile(i, j, bn);
+            var decTile = getTile(i,j,2,map);
+            if ( decTile != undefined ) drawTile(i,j, decTile);
         }
     }
 }
 
 //CONF CONSTS
 TILE_SIZE = 16;
-/*TILE_TYPES = [
-    "sea3",
+TILE_TYPES = [
     "sea2",
     "sea1",
     "sand",
-    "rock"
-];*/
-TILE_TYPES = [
+    "grass",
+    "rock",
+    "rock",
+    "snow"
+];
+/*TILE_TYPES = [
     backgrounds[Math.floor(Math.random()*backgrounds.length)],
     backgrounds[Math.floor(Math.random()*backgrounds.length)],
     backgrounds[Math.floor(Math.random()*backgrounds.length)],
     backgrounds[Math.floor(Math.random()*backgrounds.length)],
     backgrounds[Math.floor(Math.random()*backgrounds.length)]
-];
+];*/
 console.log(TILE_TYPES);
 WIDTH = 800;
 HEIGHT = 800;
