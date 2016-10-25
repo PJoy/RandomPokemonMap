@@ -220,13 +220,16 @@ for (var borderType in borderTiles.type){
         }
     } else if ( !borderType.includes('$') ) {
         backgrounds.forEach(function(bgName){
-            newborderType = borderType.replace('*',bgName);
-
+            var pos = borderType.indexOf('*');
+            var index = 0;
+            if (pos > 0) index = 1;
+            var newborderType = borderType.replace('*',bgName);
+            var baseTileType = newborderType.split('-')[index];
             for ( var dir in borderTiles.coords){
-                if (sprites[newborderType+dir] == undefined){
+                if (sprites[newborderType+dir] == undefined && sprites[baseTileType] != undefined){
                     sprites[newborderType+dir] = {
                         dim: [1, 1, 2],
-                        bg: sprites[bgName].start,
+                        bg: sprites[baseTileType].start,
                         start: [borderTiles.type[borderType][0] + borderTiles.coords[dir][0],
                             borderTiles.type[borderType][1] + borderTiles.coords[dir][1]]
                     }
@@ -238,12 +241,10 @@ for (var borderType in borderTiles.type){
             newborderType = borderType.replace('*',bgName);
             backgrounds.forEach(function(bgName2) {
                 newborderType2 = newborderType.replace('$',bgName2);
-                console.log(newborderType2);
                 for ( var dir in borderTiles.coords){
                     if (sprites[newborderType2+dir] == undefined){
                         sprites[newborderType2+dir] = {
-                            dim: [1, 1, 2],
-                            bg: sprites[bgName].start,
+                            dim: [1, 1],
                             start: [borderTiles.type[borderType][0] + borderTiles.coords[dir][0],
                                 borderTiles.type[borderType][1] + borderTiles.coords[dir][1]]
                         }

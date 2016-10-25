@@ -63,40 +63,40 @@ function getBorderDirections(x,y,grid) {
     var dir = '';
     var differentTile;
 
-    if (center > getTile(x,y-1,0,grid) && getTile(x,y-1,0,grid) != undefined){
+    if (center != getTile(x,y-1,0,grid) && getTile(x,y-1,0,grid) != undefined){
         differentTile = getTile(x,y-1,0,grid);
         dir += 'N';
-        if (center > getTile(x-1,y,0,grid) && getTile(x-1,y,0,grid) != undefined){
+        if (center != getTile(x-1,y,0,grid) && getTile(x-1,y,0,grid) != undefined){
             dir += '+W';
         }
-        if (center > getTile(x+1,y,0,grid) && getTile(x+1,y,0,grid) != undefined){
+        if (center != getTile(x+1,y,0,grid) && getTile(x+1,y,0,grid) != undefined){
             dir += '+E'
         }
-    } else if (center > getTile(x,y+1,0,grid) && getTile(x,y+1,0,grid) != undefined){
+    } else if (center != getTile(x,y+1,0,grid) && getTile(x,y+1,0,grid) != undefined){
         differentTile = getTile(x,y+1,0,grid);
         dir += 'S';
-        if (center > getTile(x-1,y,0,grid) && getTile(x-1,y,0,grid) != undefined){
+        if (center != getTile(x-1,y,0,grid) && getTile(x-1,y,0,grid) != undefined){
             dir += '+W';
         }
-        if (center > getTile(x+1,y,0,grid) && getTile(x+1,y,0,grid) != undefined){
+        if (center != getTile(x+1,y,0,grid) && getTile(x+1,y,0,grid) != undefined){
             dir += '+E'
         }
-    } else if (center > getTile(x-1,y,0,grid) && getTile(x-1,y,0,grid) != undefined){
+    } else if (center != getTile(x-1,y,0,grid) && getTile(x-1,y,0,grid) != undefined){
         differentTile = getTile(x-1,y,0,grid);
         dir += 'W'
-    } else if (center > getTile(x+1,y,0,grid) && getTile(x+1,y,0,grid) != undefined){
+    } else if (center != getTile(x+1,y,0,grid) && getTile(x+1,y,0,grid) != undefined){
         differentTile = getTile(x+1,y,0,grid);
         dir += 'E'
-    } else if (center > getTile(x-1,y-1,0,grid) && getTile(x-1,y-1,0,grid) != undefined){
+    } else if (center != getTile(x-1,y-1,0,grid) && getTile(x-1,y-1,0,grid) != undefined){
         differentTile = getTile(x-1,y-1,0,grid);
         dir = 'NW';
-    } else if (center > getTile(x+1,y-1,0,grid) && getTile(x+1,y-1,0,grid) != undefined){
+    } else if (center != getTile(x+1,y-1,0,grid) && getTile(x+1,y-1,0,grid) != undefined){
         differentTile = getTile(x+1,y-1,0,grid);
         dir = 'NE';
-    } else if (center > getTile(x-1,y+1,0,grid) && getTile(x-1,y+1,0,grid) != undefined){
+    } else if (center != getTile(x-1,y+1,0,grid) && getTile(x-1,y+1,0,grid) != undefined){
         differentTile = getTile(x-1,y+1,0,grid);
         dir = 'SW';
-    } else if (center > getTile(x+1,y+1,0,grid) && getTile(x+1,y+1,0,grid) != undefined) {
+    } else if (center != getTile(x+1,y+1,0,grid) && getTile(x+1,y+1,0,grid) != undefined) {
         differentTile = getTile(x+1,y+1,0,grid);
         dir = 'SE';
     }
@@ -145,7 +145,14 @@ function getBorderName(bTile){
     var dir = bTile.dir;
 
     //console.log(z1, z2, dir);
-    if (z1 == undefined || z2 == undefined || dir == undefined) return undefined;
+    if (z1 == undefined || z2 == undefined || dir == undefined) return;
+
+    //particular cases
+    if (TILE_TYPES[z1]+'-'+TILE_TYPES[z2] == 'sea1-sea2') return;
+    if (TILE_TYPES[z1]+'-'+TILE_TYPES[z2] == 'sea2-sea3') return;
+    if (TILE_TYPES[z1]+'-'+TILE_TYPES[z2] == 'sea2-sea1') return TILE_TYPES[z1]+'-'+TILE_TYPES[z2]+dir;
+    if (TILE_TYPES[z1]+'-'+TILE_TYPES[z2] == 'sea3-sea2') return TILE_TYPES[z1]+'-'+TILE_TYPES[z2]+dir;
+    if (z2 > z1) return;
 
     return TILE_TYPES[z1]+'-'+TILE_TYPES[z2]+dir;
 }
@@ -164,10 +171,21 @@ function drawMap(map) {
 
 //CONF CONSTS
 TILE_SIZE = 16;
+/*TILE_TYPES = [
+    "sea3",
+    "sea2",
+    "sea1",
+    "sand",
+    "rock"
+];*/
 TILE_TYPES = [
+    backgrounds[Math.floor(Math.random()*backgrounds.length)],
+    backgrounds[Math.floor(Math.random()*backgrounds.length)],
+    backgrounds[Math.floor(Math.random()*backgrounds.length)],
     backgrounds[Math.floor(Math.random()*backgrounds.length)],
     backgrounds[Math.floor(Math.random()*backgrounds.length)]
 ];
+console.log(TILE_TYPES);
 WIDTH = 800;
 HEIGHT = 800;
 GRID = [];
