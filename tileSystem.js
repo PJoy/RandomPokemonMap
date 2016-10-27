@@ -2,71 +2,18 @@
  * Created by pierreportejoie on 30/09/2016.
  */
 
-var decorationCSV = "" +
-    "X;Y;dX;dY;grass;savanah;desert;swamp;beach;snow;lava;;\
-5,0;13,0;2,0;2,0;true;false;false;false;false;false;false;;\
-1,0;20,0;1,0;1,0;true;false;false;false;false;false;false;;\
-2,0;20,0;1,0;1,0;true;false;false;false;false;false;false;;\
-3,0;20,0;1,0;1,0;true;false;false;false;false;false;false;;\
-4,0;20,0;1,0;1,0;true;true;true;true;true;true;false;;\
-6,0;20,0;2,0;2,0;false;false;false;false;true;false;false;;\
-8,0;20,0;1,0;1,0;false;false;false;false;true;false;false;;\
-9,0;20,0;1,0;1,0;true;false;false;false;false;false;false;;\
-10,0;20,0;1,0;1,0;true;false;false;false;false;false;false;;\
-11,0;20,0;1,0;1,0;true;false;false;false;false;false;false;;\
-12,0;20,0;1,0;1,0;false;false;false;false;false;false;false;;\
-13,0;20,0;1,0;1,0;false;false;false;false;false;false;false;;\
-14,0;20,0;1,0;1,0;false;false;false;false;false;false;false;;\
-15,0;20,0;1,0;2,0;true;false;false;true;false;false;false;;\
-16,0;20,0;1,0;2,0;true;false;false;true;false;false;false;;\
-17,0;20,0;1,0;2,0;true;false;false;true;false;false;false;;\
-18,0;20,0;1,0;1,0;false;false;false;false;false;false;false;;\
-19,0;20,0;1,0;1,0;false;false;false;false;false;false;false;;\
-20,0;20,0;1,0;1,0;false;false;false;false;false;true;false;;\
-21,0;20,0;1,0;1,0;false;false;false;false;false;false;false;;\
-22,0;20,0;1,0;1,0;false;false;false;false;false;false;false;;\
-23,0;20,0;1,0;1,0;false;false;false;false;false;false;false;;\
-24,0;20,0;1,0;1,0;false;false;false;true;false;false;false;;\
-25,0;20,0;1,0;2,0;false;false;false;true;false;false;false;;\
-26,0;20,0;1,0;2,0;false;false;false;true;false;false;false;;\
-27,0;20,0;1,0;1,0;false;false;false;false;false;false;false;;\
-28,0;20,0;1,0;1,0;false;false;false;false;false;true;false;;\
-29,0;20,0;1,0;1,0;false;false;false;false;false;true;false;;\
-30,0;20,0;2,0;1,0;false;false;false;false;false;true;false;;\
-32,0;20,0;1,0;1,0;false;false;false;false;false;false;false;;\
-33,0;20,0;2,0;3,0;false;false;false;true;false;false;false;;\
-1,0;21,0;2,0;3,0;false;false;false;false;false;false;false;;\
-3,0;21,0;1,0;1,0;true;false;false;false;false;false;false;;\
-5,0;21,0;1,0;1,0;true;false;false;false;true;false;false;;\
-3,0;22,0;1,0;1,0;true;false;false;true;false;false;false;;\
-4,0;22,0;1,0;1,0;true;false;false;false;false;false;false;;\
-4,0;23,0;1,0;1,0;true;false;false;true;false;false;false;;\
-5,0;22,0;1,0;2,0;false;false;false;false;true;false;false;;\
-9,0;20,0;1,0;1,0;false;false;false;false;true;false;false;;\
-9,0;21,0;1,0;1,0;false;false;false;false;true;false;false;;\
-9,0;22,0;1,0;1,0;true;false;false;false;false;true;false;;\
-10,0;21,0;1,0;1,0;true;false;false;false;false;false;false;;\
-11,0;21,0;1,0;1,0;true;false;false;false;false;false;false;;\
-12,0;21,0;1,0;1,0;true;false;false;false;false;false;false;;\
-12,0;22,0;1,0;1,0;true;false;false;false;false;false;false;;\
-13,0;21,0;3,0;3,0;false;true;false;false;false;false;false;;\
-16,0;22,0;3,0;3,0;true;false;false;true;false;false;false;;\
-18,0;21,0;1,0;1,0;true;false;false;true;false;false;false;;\
-19,0;21,0;1,0;1,0;false;false;false;false;false;false;false;;\
-19,0;22,0;1,0;1,0;true;false;false;true;false;true;false;;\
-19,0;23,0;1,0;1,0;true;false;false;true;false;true;false;;\
-20,0;21,0;1,0;1,0;false;false;false;false;false;true;false;;\
-20,0;22,0;1,0;1,0;false;false;false;false;false;false;false;;\
-21,0;21,0;1,0;1,0;false;false;false;false;false;false;false;;\
-28,0;20,0;1,0;1,0;false;false;false;false;false;false;false;;\
-28,0;21,0;2,0;2,0;false;false;false;false;true;false;false;;\
-28,0;23,0;1,0;1,0;false;false;false;false;true;false;false;;\
-5,0;13,0;2,0;2,0;true;false;false;false;false;false;false;;\
-1,0;20,0;1,0;1,0;true;false;false;false;false;false;false;;\
-2,0;20,0;1,0;1,0;true;false;false;false;false;false;false;;\
-3,0;20,0;1,0;1,0;true;false;false;false;false;false;false;;\
-4,0;20,0;1,0;1,0;true;true;true;true;true;true;false;;\
-6,0;20,0;2,0;2,0;false;false;false;false;true;false;false;";
+var decoration =
+{
+    "ground": [97,98,99,100,106,118,124,125,153,155,171,181,192,200,254,255,256,257,312],
+    "grass": [97,98,99,100,106,118,124,125,153,155,171,181,192,256,257,299,312],
+    "rock": [97,98,100,106,118,199,254,255,256,257,312,331,332,337,390],
+    "snow": [97,98,99,100,106,118,112,124,125,153,155,160,161,171,181,258,259,314],
+    "desert": [107,108,109,153,155,171,254,255],
+    "beach": [153,155,173,181,183,184,254,255],
+    "water": [97,100,153,155,181,238,240,241,245,246,254,255,312,326],
+    "swamp": [97,98,99,100,106,118,124,125,153,155,171,238,240,241,245,246],
+    "city": [171,181,192,200]
+};
 
 var backgroundTiles =
 {
@@ -263,16 +210,6 @@ var trees =
     }
 };
 
-var decorations =
-{
-        "test": {
-            "start": [4, 20],
-            "dim": [1,1],
-            "env": ["grass"]
-        }
-};
-
-
 canvas = document.getElementById('C');
 var ctx = canvas.getContext('2d');
 tileSheet = document.getElementById('spritesheet');
@@ -345,7 +282,7 @@ for (var range in trees){
     }
 }
 
-iD = 0;
+/*iD = 0;
 decorationCSV.split(';;').forEach(function(line){
     iD++;
     var parsed = line.split(';');
@@ -358,8 +295,16 @@ decorationCSV.split(';;').forEach(function(line){
         parseInt(parsed[3])
     ];
 
-    sprites['decoration'+iD] = {dim:dim,start:start}
-});
+    if (parsed[4]) sprites['grassDecoration'+iD] = {dim:dim,start:start};
+    if (parsed[5]) sprites['savanahDecoration'+iD] = {dim:dim,start:start};
+    if (parsed[6]) sprites['desertDecoration'+iD] = {dim:dim,start:start};
+    if (parsed[7]) sprites['swampDecoration'+iD] = {dim:dim,start:start};
+    if (parsed[8]) sprites['beachDecoration'+iD] = {dim:dim,start:start};
+    if (parsed[9]) sprites['snowDecoration'+iD] = {dim:dim,start:start};
+    if (parsed[10]) sprites['lavaDecoration'+iD] = {dim:dim,start:start}
+
+
+});*/
 
 /**
  * X = 0 --> left

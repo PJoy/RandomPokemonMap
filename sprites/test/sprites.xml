@@ -1,0 +1,3 @@
+<TextureAtlas imagePath="sprites.png">
+	<SubTexture name="pokemon_tiles_corrected.png" x="0" y="0" width="2193" height="2315"/>
+</TextureAtlas>

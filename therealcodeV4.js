@@ -2,6 +2,8 @@
  * Created by pierreportejoie on 30/09/2016.
  */
 
+
+
 function generateNoiseMap(seed, width, height, xOffset = 0, yOffset = 0) {
     var map = [];
 
@@ -115,13 +117,50 @@ function generateBorders(grid) {
     return grid;
 }
 
+function getEnv(bg){
+    if (bg == 'sea1') return 'water';
+    if (bg == 'sand') return 'beach';
+    if (bg == 'grass') return 'grass';
+    if (bg == 'ground') return 'ground';
+    if (bg == 'rock') return 'rock';
+    if (bg == 'snow') return 'snow';
+    if (bg == 'water4') return 'swamp';
+    return '';
+}
+
+function isDrawableSetTile(x,y,tile,grid){
+    var orig = getTile(x,y,0,grid);
+
+
+    var img = new Image();
+    img.onload = function(){
+        var ok = true;
+        var sizeX = Math.ceil(img.width/16);
+        var sizeY = Math.ceil(img.height/16);
+
+        for ( var i = x; i < x + sizeX; i++ ) {
+            for ( var j = y; j < y + sizeY; j++ ) {
+                if ( getTile(i,j,0,grid) != orig || getTile(i,j,2,grid) != undefined || getTile(i,j,1,grid).dir != '') {
+                    ok = false;
+                }
+            }
+        }
+        if (ok) setTile(x,y,2,grid,tile);
+    };
+    img.src = 'sprites/sprites/sprites_'+tile+'.png';
+}
+
 function generateXLDetails(grid) {
     for ( var i = 0; i < WIDTH / TILE_SIZE; i++ ) {
         for ( var j = 0; j < HEIGHT / TILE_SIZE; j++ ) {
-            if ( noise.simplex2(i,j) > 0.9 ) setTile(i,j,2,grid,'decoration'+Math.floor(Math.random()*62))
+            if (Math.random() > 0.99 )
+            {
+                var bckg = getEnv(TILE_TYPES[getTile(i,j,0,grid)]);
+                if (bckg != undefined) var tile = decoration[bckg][Math.floor(Math.random()*decoration[bckg].length)];
+                isDrawableSetTile(i,j,tile,grid)
+            }
         }
     }
-
     return grid
 }
 
@@ -170,11 +209,10 @@ function drawMap(map) {
 
     for ( var i = 1; i < WIDTH/TILE_SIZE-1; i++){
         for ( var j = 1; j < HEIGHT/TILE_SIZE-1; j++){
+            var bkg = TILE_TYPES[getTile(i,j,0,map)];
             drawTile(i, j, TILE_TYPES[map[i + WIDTH/TILE_SIZE * j]]);
             var bn = getBorderName(getTile(i,j,1,map));
             if ( bn != undefined ) drawTile(i, j, bn);
-            var decTile = getTile(i,j,2,map);
-            if ( decTile != undefined ) drawTile(i,j, decTile);
         }
     }
 }
@@ -182,13 +220,10 @@ function drawMap(map) {
 //CONF CONSTS
 TILE_SIZE = 16;
 TILE_TYPES = [
-    "sea2",
     "sea1",
     "sand",
     "grass",
-    "rock",
-    "rock",
-    "snow"
+    "water4"
 ];
 /*TILE_TYPES = [
     backgrounds[Math.floor(Math.random()*backgrounds.length)],
@@ -203,6 +238,23 @@ HEIGHT = 800;
 GRID = [];
 
 $(document).ready(function() {
-    var map = generateMap();
+     map = generateMap();
     drawMap(map);
+
+    window.setTimeout(function(){
+
+    var imgs = [];
+    for ( var ii = 1; ii < WIDTH/TILE_SIZE-1; ii++){
+        for ( var jj = 1; jj < HEIGHT/TILE_SIZE-1; jj++){
+            var tile = getTile(ii,jj,2,map);
+            if (tile != undefined){
+                var img = new Image();
+                img.src = 'sprites/sprites/sprites_'+tile+'.png';
+                imgs.push([img, ii*16, jj*16])
+            }
+        }
+    }
+    imgs.forEach(function(e){ ctx.drawImage(e[0],e[1],e[2]); });
+    },10)
+
 });
