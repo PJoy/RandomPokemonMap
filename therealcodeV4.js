@@ -2,6 +2,8 @@
  * Created by pierreportejoie on 30/09/2016.
  */
 
+//TODO : selective over for assets (for now, only 1 asset per tile)
+
 
 
 function generateNoiseMap(seed, width, height, xOffset = 0, yOffset = 0) {
@@ -121,11 +123,11 @@ function getEnv(bg){
     if (bg == 'sea1') return 'water';
     if (bg == 'sand') return 'beach';
     if (bg == 'grass') return 'grass';
-    if (bg == 'ground') return 'ground';
+    if (bg == 'ground' || bg == 'ground2' || bg == 'dground') return 'ground';
     if (bg == 'rock') return 'rock';
     if (bg == 'snow') return 'snow';
     if (bg == 'water4') return 'swamp';
-    return '';
+    return ;
 }
 
 function isDrawableSetTile(x,y,tile,grid){
@@ -153,11 +155,34 @@ function isDrawableSetTile(x,y,tile,grid){
 function generateXLDetails(grid) {
     for ( var i = 0; i < WIDTH / TILE_SIZE; i++ ) {
         for ( var j = 0; j < HEIGHT / TILE_SIZE; j++ ) {
-            if (Math.random() > 0.99 )
+            if (Math.random() > 0.9 )
             {
-                var bckg = getEnv(TILE_TYPES[getTile(i,j,0,grid)]);
+                var n = Math.floor(Math.random() * 227);
+
+                var img = new Image();
+                img.onload = function(){
+                    var ok = true;
+                    /*var sizeX = Math.ceil(img.width/16);
+                    var sizeY = Math.ceil(img.height/16);
+
+                    for ( var i = x; i < x + sizeX; i++ ) {
+                        for ( var j = y; j < y + sizeY; j++ ) {
+                            if ( getTile(i,j,0,grid) != orig || getTile(i,j,2,grid) != undefined || getTile(i,j,1,grid).dir != '') {
+                                ok = false;
+                            }
+                        }
+                    }*/
+                };
+                img.src = 'sprites/sprites2/tile'+(n+2)+'.png';
+
+                ctx.drawImage(img, 0, 0,
+                    img.width, img.height,
+                    i * TILE_SIZE, j * TILE_SIZE,
+                    img.width, img.height);
+               /* var bckg = getEnv(TILE_TYPES[getTile(i,j,0,grid)]);
                 if (bckg != undefined) var tile = decoration[bckg][Math.floor(Math.random()*decoration[bckg].length)];
                 isDrawableSetTile(i,j,tile,grid)
+            */
             }
         }
     }
@@ -169,7 +194,7 @@ function generateXSDetails(grid) {
 }
 
 function generateDetails(grid) {
-    generateXLDetails(grid);
+    //generateXLDetails(grid);
     generateXSDetails();
 
     return grid;
@@ -219,19 +244,17 @@ function drawMap(map) {
 
 //CONF CONSTS
 TILE_SIZE = 16;
-TILE_TYPES = [
-    "sea1",
-    "sand",
-    "grass",
-    "water4"
-];
 /*TILE_TYPES = [
+    "dground",
+    "water4"
+];*/
+TILE_TYPES = [
     backgrounds[Math.floor(Math.random()*backgrounds.length)],
     backgrounds[Math.floor(Math.random()*backgrounds.length)],
     backgrounds[Math.floor(Math.random()*backgrounds.length)],
     backgrounds[Math.floor(Math.random()*backgrounds.length)],
     backgrounds[Math.floor(Math.random()*backgrounds.length)]
-];*/
+];
 console.log(TILE_TYPES);
 WIDTH = 800;
 HEIGHT = 800;
@@ -240,10 +263,11 @@ GRID = [];
 $(document).ready(function() {
      map = generateMap();
     drawMap(map);
+    generateXLDetails(map);
 
     window.setTimeout(function(){
 
-    var imgs = [];
+    /*var imgs = [];
     for ( var ii = 1; ii < WIDTH/TILE_SIZE-1; ii++){
         for ( var jj = 1; jj < HEIGHT/TILE_SIZE-1; jj++){
             var tile = getTile(ii,jj,2,map);
@@ -255,6 +279,6 @@ $(document).ready(function() {
         }
     }
     imgs.forEach(function(e){ ctx.drawImage(e[0],e[1],e[2]); });
-    },10)
+    },100)*/
 
 });
