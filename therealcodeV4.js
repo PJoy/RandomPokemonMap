@@ -265,9 +265,9 @@ $(document).ready(function() {
     drawMap(map);
     generateXLDetails(map);
 
-    window.setTimeout(function(){
+    /*window.setTimeout(function(){
 
-    /*var imgs = [];
+    var imgs = [];
     for ( var ii = 1; ii < WIDTH/TILE_SIZE-1; ii++){
         for ( var jj = 1; jj < HEIGHT/TILE_SIZE-1; jj++){
             var tile = getTile(ii,jj,2,map);
