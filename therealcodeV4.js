@@ -152,12 +152,55 @@ function isDrawableSetTile(x,y,tile,grid){
     img.src = 'sprites/sprites/sprites_'+tile+'.png';
 }
 
+function isDrawable(img, x, y, map) {
+    dimX = img.width;
+    dimY = img.height;
+
+    for ( var i = x; i < x + Math.floor((dimX+8)/TILE_SIZE); i++){
+        for ( var j = y; j < y + Math.floor((dimY+8)/TILE_SIZE); j++){
+            //console.log(getTile(i,j,1,map));
+            if ( getTile(i,j,1,map).differentTile != undefined || getTile(i,j,2,map) != undefined ) return false;
+        }
+    }
+    for ( var i = x; i < x + Math.ceil(dimX/TILE_SIZE); i++) {
+        for (var j = y; j < y + Math.ceil(dimY / TILE_SIZE); j++) {
+            setTile(i,j,2,map,'x');
+        }
+    }
+    setTile(x,y,2,map,img.src);
+    return true
+}
+
+function checkBG(n, bg) {
+    var metatype;
+    for (var e in backgroundTypes){
+        backgroundTypes[e].forEach(function(el){
+            if (TILE_TYPES[bg] == el) metatype = e;
+        })
+    }
+
+    for (var f in decoration){
+     decoration[e].forEach(function(el){
+            if (el == n && f != metatype) {
+                return false
+            }
+        })
+    }
+
+    console.log(n, metatype);
+    return true;
+}
+
 function generateXLDetails(grid) {
     for ( var i = 0; i < WIDTH / TILE_SIZE; i++ ) {
         for ( var j = 0; j < HEIGHT / TILE_SIZE; j++ ) {
-            if (Math.random() > 0.9 )
+            if (Math.random() > 0.99 )
             {
-                var n = Math.floor(Math.random() * 227);
+                while (true){
+                    var n = Math.floor(Math.random() * 227);
+                    if (checkBG(n+2,getTile(i,j,0,grid))) break;
+                }
+
 
                 var img = new Image();
                 img.onload = function(){
@@ -175,10 +218,12 @@ function generateXLDetails(grid) {
                 };
                 img.src = 'sprites/sprites2/tile'+(n+2)+'.png';
 
-                ctx.drawImage(img, 0, 0,
-                    img.width, img.height,
-                    i * TILE_SIZE, j * TILE_SIZE,
-                    img.width, img.height);
+
+                isDrawable(img,i,j,grid);
+                /*if (isDrawable(img,i,j,grid)){
+                    ctx.drawImage(img, 0, 0, img.width, img.height, i * TILE_SIZE, j * TILE_SIZE, img.width, img.height);
+                }*/
+
                /* var bckg = getEnv(TILE_TYPES[getTile(i,j,0,grid)]);
                 if (bckg != undefined) var tile = decoration[bckg][Math.floor(Math.random()*decoration[bckg].length)];
                 isDrawableSetTile(i,j,tile,grid)
@@ -263,22 +308,24 @@ GRID = [];
 $(document).ready(function() {
      map = generateMap();
     drawMap(map);
+    window.setTimeout(function(){
     generateXLDetails(map);
+    },100);
 
-    /*window.setTimeout(function(){
+    window.setTimeout(function(){
 
-    var imgs = [];
+     imgs = [];
     for ( var ii = 1; ii < WIDTH/TILE_SIZE-1; ii++){
         for ( var jj = 1; jj < HEIGHT/TILE_SIZE-1; jj++){
             var tile = getTile(ii,jj,2,map);
-            if (tile != undefined){
+            if (tile != undefined && tile != 'x'){
                 var img = new Image();
-                img.src = 'sprites/sprites/sprites_'+tile+'.png';
+                img.src = tile;
                 imgs.push([img, ii*16, jj*16])
             }
         }
     }
     imgs.forEach(function(e){ ctx.drawImage(e[0],e[1],e[2]); });
-    },100)*/
+    },100)
 
 });
