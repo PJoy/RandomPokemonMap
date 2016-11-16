@@ -167,12 +167,14 @@ function isDrawable(img, x, y, map) {
             setTile(i,j,2,map,'x');
         }
     }
+    //console.log(1, img.src);
     setTile(x,y,2,map,img.src);
     return true
 }
 
 function checkBG(n, bg) {
-    var metatype;
+    var metatype=null;
+
     for (var e in backgroundTypes){
         backgroundTypes[e].forEach(function(el){
             if (TILE_TYPES[bg] == el) metatype = e;
@@ -180,21 +182,33 @@ function checkBG(n, bg) {
     }
 
     for (var f in decoration){
-     decoration[e].forEach(function(el){
+     decoration[f].forEach(function(el){
             if (el == n && f != metatype) {
                 return false
             }
         })
     }
 
+    var bool = true;
+
+    if (metatype == "water"){
+        bool = false;
+        decoration["water"].forEach(function(e){
+            if (n == e) {
+                bool = true;
+                //console.log(e, metatype);
+            }
+        })
+    }
+
     console.log(n, metatype);
-    return true;
+    if (bool) return true;
 }
 
 function generateXLDetails(grid) {
     for ( var i = 0; i < WIDTH / TILE_SIZE; i++ ) {
         for ( var j = 0; j < HEIGHT / TILE_SIZE; j++ ) {
-            if (Math.random() > 0.99 )
+            if (Math.random() > 0.2 )
             {
                 while (true){
                     var n = Math.floor(Math.random() * 227);
@@ -217,7 +231,6 @@ function generateXLDetails(grid) {
                     }*/
                 };
                 img.src = 'sprites/sprites2/tile'+(n+2)+'.png';
-
 
                 isDrawable(img,i,j,grid);
                 /*if (isDrawable(img,i,j,grid)){
@@ -250,7 +263,7 @@ function generateMap() {
     var bgBd = generateBorders(bg);
     var bgBdDe = generateDetails(bgBd);
 
-    console.log(bgBdDe);
+    //console.log(bgBdDe);
     return bgBdDe;
 }
 
@@ -309,7 +322,7 @@ $(document).ready(function() {
      map = generateMap();
     drawMap(map);
     window.setTimeout(function(){
-    generateXLDetails(map);
+    //generateXLDetails(map);
     },100);
 
     window.setTimeout(function(){
@@ -325,7 +338,9 @@ $(document).ready(function() {
             }
         }
     }
-    imgs.forEach(function(e){ ctx.drawImage(e[0],e[1],e[2]); });
+    imgs.forEach(function(e){
+        ctx.drawImage(e[0],e[1],e[2]);
+    });
     },100)
 
 });
