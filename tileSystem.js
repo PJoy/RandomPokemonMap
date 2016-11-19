@@ -180,7 +180,7 @@ var backgroundTiles =
         "dim": [1,1],
         "start": [23,16]
     },
-    "rock5": {
+    "swamp": {
         "dim": [1,1],
         "start": [26,16]
     },
@@ -231,6 +231,18 @@ var backgroundTiles =
     "rock3": {
         "dim": [1,1],
         "start": [23,33]
+    },
+    "desert1": {
+        "dim": [1,1],
+        "start": [6,23]
+    },
+    "desert2": {
+        "dim": [1,1],
+        "start": [2,33]
+    },
+    "savanah": {
+        "dim": [1,1],
+        "start": [15,20]
     }
 };
 
@@ -255,9 +267,9 @@ var borderTiles =
         "ground2-bgrass2": [13,15],
         "dground-grass": [16,15],
         "rock4-rock6": [22,15],
-        "rock5-rock6": [25,15],
-        "tile1-tile2": [34,15],
-        "tile3-tile4": [37,15],
+        "swamp-rock6": [25,15],
+        //"tile1-tile2": [34,15],
+        //"tile3-tile4": [37,15],
         "sand-sea2": [1,25],
         "sand-sea1": [4,25],
         "sea3-sea2": [7,25],
@@ -265,10 +277,10 @@ var borderTiles =
         "sand2-sea5": [13,25],
         "sand2-sea4": [16,25],
         "sea5-sea4": [19,25],
-        "water-grass": [45,25],
+        //"water-grass": [45,25],
         "snow1-*": [19,15],
-        "snow2-*": [28,15],
-        "snow3-*": [31,15],
+        "desert2-*": [1,32],
+        "water-water2": [42,25],
         "water2-*": [39,25],
         "water3-*": [62,25],
         "water4-*": [66,25],
@@ -280,10 +292,11 @@ var borderTiles =
         "sand4-*": [16,32],
         "rock2-*": [19,32],
         "rock3-*": [22,32],
+        "*-savanah": [10, 15],
         "*-grass": [4,15],
         "*-grass2": [7,15],
         "*-bgrass2": [10,15],
-        "*-$": [10,32]
+        //"*-$": [10,32]
     }
 };
 
@@ -334,9 +347,12 @@ for (var tileName in backgroundTiles){
 
 for (var borderType in borderTiles.type){
     if ( !borderType.includes('*') ){
+        var baseTileType = 'water3';
+        console.log(baseTileType);
         for ( var dir in borderTiles.coords){
             sprites[borderType+dir] = {
-                dim: [1, 1],
+                dim: [1, 1, 2],
+                bg: sprites[baseTileType].start,
                 start: [borderTiles.type[borderType][0] + borderTiles.coords[dir][0],
                     borderTiles.type[borderType][1] + borderTiles.coords[dir][1]]
             }

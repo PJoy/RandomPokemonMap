@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11ab5041-5857-458d-b512-d55102a9f2c7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/decoration.csv" afterPath="$PROJECT_DIR$/decoration.csv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sprites/sprites2/tile173.png" afterPath="$PROJECT_DIR$/sprites/sprites2/tile173.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sprites/sprites2/tile87.png" afterPath="$PROJECT_DIR$/sprites/sprites2/tile87.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/therealcodeV4.js" afterPath="$PROJECT_DIR$/therealcodeV4.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tileSystem.js" afterPath="$PROJECT_DIR$/tileSystem.js" />
     </list>
     <ignored path="FRKTL.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,11 +46,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="therealcodeV4.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="therealcodeV4.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/therealcodeV4.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="165" column="51" selection-start-line="165" selection-start-column="51" selection-end-line="165" selection-end-column="51" />
+            <state relative-caret-position="90">
+              <caret line="288" column="13" selection-start-line="288" selection-start-column="13" selection-end-line="288" selection-end-column="13" />
               <folding>
                 <element signature="n#!!block;n#checkBG#0" expanded="false" />
               </folding>
@@ -55,11 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tileSystem.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="tileSystem.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tileSystem.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="29" column="35" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
+            <state relative-caret-position="795">
+              <caret line="349" column="34" selection-start-line="349" selection-start-column="28" selection-end-line="349" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -120,8 +123,8 @@
         <option value="$PROJECT_DIR$/jsonData.js" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/decoration/Feuille 3-Tableau 1.csv" />
-        <option value="$PROJECT_DIR$/tileSystem.js" />
         <option value="$PROJECT_DIR$/therealcodeV4.js" />
+        <option value="$PROJECT_DIR$/tileSystem.js" />
       </list>
     </option>
   </component>
@@ -177,6 +180,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="gggg" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gggg" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gggg" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sprites" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -292,12 +309,12 @@
       <workItem from="1479225869271" duration="1229000" />
       <workItem from="1479300590510" duration="247000" />
       <workItem from="1479550450186" duration="57000" />
-      <workItem from="1479550526337" duration="6738000" />
+      <workItem from="1479550526337" duration="13638000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="138125000" />
+    <option name="totallyTimeSpent" value="145025000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -575,14 +592,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="7" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/therealcodeV3.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="795">
@@ -590,14 +599,6 @@
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/decoration.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="16" column="41" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -609,21 +610,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tileSystem.js">
+    <entry file="file://$PROJECT_DIR$/decoration.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="35" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
+        <state relative-caret-position="225">
+          <caret line="16" column="41" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="7" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/therealcodeV4.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="165" column="51" selection-start-line="165" selection-start-column="51" selection-end-line="165" selection-end-column="51" />
+        <state relative-caret-position="90">
+          <caret line="288" column="13" selection-start-line="288" selection-start-column="13" selection-end-line="288" selection-end-column="13" />
           <folding>
             <element signature="n#!!block;n#checkBG#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tileSystem.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="795">
+          <caret line="349" column="34" selection-start-line="349" selection-start-column="28" selection-end-line="349" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>

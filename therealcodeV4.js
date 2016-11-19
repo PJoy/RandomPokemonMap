@@ -264,6 +264,9 @@ function getBorderName(bTile){
     if (TILE_TYPES[z1]+'-'+TILE_TYPES[z2] == 'sand-grass') return TILE_TYPES[z1]+'-'+TILE_TYPES[z2]+dir;
     if (z2 > z1) return;
 
+    //particular cases UPDATED
+    //if (TILE_TYPES[z2] == 'water') return TILE_TYPES[z2]+'-'+TILE_TYPES[z1]+dir;
+
     return TILE_TYPES[z1]+'-'+TILE_TYPES[z2]+dir;
 }
 
@@ -282,17 +285,20 @@ function drawMap(map) {
 
 //CONF CONSTS
 TILE_SIZE = 16;
-/*TILE_TYPES = [
-    "dground",
-    "water4"
-];*/
 TILE_TYPES = [
+    "water2",
+    "water",
+    "grass",
+    //"rock",
+    //"snow"
+];
+/*TILE_TYPES = [
     backgrounds[Math.floor(Math.random()*backgrounds.length)],
-    backgrounds[Math.floor(Math.random()*backgrounds.length)],
+    "water4",
     backgrounds[Math.floor(Math.random()*backgrounds.length)],
     backgrounds[Math.floor(Math.random()*backgrounds.length)],
     backgrounds[Math.floor(Math.random()*backgrounds.length)]
-];
+];*/
 console.log(TILE_TYPES);
 WIDTH = 800;
 HEIGHT = 800;
@@ -302,7 +308,7 @@ $(document).ready(function() {
      map = generateMap();
     drawMap(map);
     window.setTimeout(function(){
-    generateXLDetails(map);
+   // generateXLDetails(map);
     },100);
 
     window.setTimeout(function(){
@@ -319,7 +325,7 @@ $(document).ready(function() {
         }
     }
     imgs.reverse().forEach(function(e){
-        ctx.drawImage(e[0],e[1],e[2]);
+   //     ctx.drawImage(e[0],e[1],e[2]);
     });
     },100)
 
