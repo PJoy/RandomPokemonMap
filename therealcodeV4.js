@@ -208,39 +208,14 @@ function checkBG(n, bg) {
 function generateXLDetails(grid) {
     for ( var i = 0; i < WIDTH / TILE_SIZE; i++ ) {
         for ( var j = 0; j < HEIGHT / TILE_SIZE; j++ ) {
-            if (Math.random() > 0.2 )
+            if (Math.random() > 0.99 )
             {
-                while (true){
-                    var n = Math.floor(Math.random() * 227);
-                    if (checkBG(n+2,getTile(i,j,0,grid))) break;
-                }
-
-
+                var n = parseInt(getRandomDec(TILE_TYPES[getTile(i,j,0,grid)]));
                 var img = new Image();
-                img.onload = function(){
-                    var ok = true;
-                    /*var sizeX = Math.ceil(img.width/16);
-                    var sizeY = Math.ceil(img.height/16);
+                img.src = 'sprites/sprites2/tile'+(n)+'.png';
+                isDrawable(img,i,j,grid)
+                console.log(n);
 
-                    for ( var i = x; i < x + sizeX; i++ ) {
-                        for ( var j = y; j < y + sizeY; j++ ) {
-                            if ( getTile(i,j,0,grid) != orig || getTile(i,j,2,grid) != undefined || getTile(i,j,1,grid).dir != '') {
-                                ok = false;
-                            }
-                        }
-                    }*/
-                };
-                img.src = 'sprites/sprites2/tile'+(n+2)+'.png';
-
-                isDrawable(img,i,j,grid);
-                /*if (isDrawable(img,i,j,grid)){
-                    ctx.drawImage(img, 0, 0, img.width, img.height, i * TILE_SIZE, j * TILE_SIZE, img.width, img.height);
-                }*/
-
-               /* var bckg = getEnv(TILE_TYPES[getTile(i,j,0,grid)]);
-                if (bckg != undefined) var tile = decoration[bckg][Math.floor(Math.random()*decoration[bckg].length)];
-                isDrawableSetTile(i,j,tile,grid)
-            */
             }
         }
     }
@@ -322,12 +297,12 @@ $(document).ready(function() {
      map = generateMap();
     drawMap(map);
     window.setTimeout(function(){
-    //generateXLDetails(map);
+    generateXLDetails(map);
     },100);
 
     window.setTimeout(function(){
 
-     imgs = [];
+        imgs = [];
     for ( var ii = 1; ii < WIDTH/TILE_SIZE-1; ii++){
         for ( var jj = 1; jj < HEIGHT/TILE_SIZE-1; jj++){
             var tile = getTile(ii,jj,2,map);

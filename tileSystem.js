@@ -2,6 +2,34 @@
  * Created by pierreportejoie on 30/09/2016.
  */
 
+var csvData, data, dataHeader;
+$.get('decoration.csv', null, function(e){
+    csvData = e;
+    data = csvData.split('\n');
+    dataHeader = data[0].split(';');
+    data = data.splice(1);
+});
+
+function getRandomDec(bgType) {
+    var index = 0;
+    for (var i = 1; i < dataHeader.length; i++){
+        if (dataHeader[i].replace(/[\x00-\x1F\x7F-\x9F]/g, "") == bgType) index = i;
+    }
+
+    if (index == 0){
+        console.log('type problem in getrandomdec');
+        return 1;
+    }
+
+    //todo optimize memory here (can be done statically before)
+    var possibleDecs = [];
+    for (var j = 0; j< data.length; j++){
+        if (data[j].split(';')[index] == 'VRAI') possibleDecs.push(data[j].split(';')[0]);
+    }
+
+    return possibleDecs[Math.floor(Math.random()*possibleDecs.length)];
+}
+
 var decoration_bkp =
 {
     "ground": [97,98,99,100,106,118,124,125,153,155,171,181,192,200,254,255,256,257,312],
@@ -83,19 +111,19 @@ var decNot ={
     "sand2": [],
     "sand4": [73,75,128,129,132,133],
     "grass": [],
-    "rock": [],
-    "rock2": [],
-    "rock3": [],
-    "rock4": [],
-    "rock5": [],
-    "rock6": [],
+    "rock": [185],
+    "rock2": [185],
+    "rock3": [185],
+    "rock4": [185],
+    "rock5": [185],
+    "rock6": [185],
     "ground": [],
     "ground2": [],
     "dground": [],
     "snow": [],
     "snow1": [],
     "snow2": [],
-    "water3": [],
+    "water3": [213,214],
 };
 
 var backgroundTiles =
