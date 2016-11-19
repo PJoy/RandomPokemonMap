@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11ab5041-5857-458d-b512-d55102a9f2c7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/decoration.csv" afterPath="$PROJECT_DIR$/decoration.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/therealcodeV4.js" afterPath="$PROJECT_DIR$/therealcodeV4.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tileSystem.js" afterPath="$PROJECT_DIR$/tileSystem.js" />
     </list>
     <ignored path="FRKTL.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -47,9 +46,11 @@
       <file leaf-file-name="therealcodeV4.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/therealcodeV4.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="216" column="31" selection-start-line="216" selection-start-column="31" selection-end-line="216" selection-end-column="31" />
-              <folding />
+            <state relative-caret-position="295">
+              <caret line="165" column="51" selection-start-line="165" selection-start-column="51" selection-end-line="165" selection-end-column="51" />
+              <folding>
+                <element signature="n#!!block;n#checkBG#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -291,12 +292,12 @@
       <workItem from="1479225869271" duration="1229000" />
       <workItem from="1479300590510" duration="247000" />
       <workItem from="1479550450186" duration="57000" />
-      <workItem from="1479550526337" duration="3922000" />
+      <workItem from="1479550526337" duration="6738000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="135309000" />
+    <option name="totallyTimeSpent" value="138125000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -618,9 +619,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/therealcodeV4.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="216" column="31" selection-start-line="216" selection-start-column="31" selection-end-line="216" selection-end-column="31" />
-          <folding />
+        <state relative-caret-position="295">
+          <caret line="165" column="51" selection-start-line="165" selection-start-column="51" selection-end-line="165" selection-end-column="51" />
+          <folding>
+            <element signature="n#!!block;n#checkBG#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

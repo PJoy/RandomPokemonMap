@@ -153,13 +153,18 @@ function isDrawableSetTile(x,y,tile,grid){
 }
 
 function isDrawable(img, x, y, map) {
-    dimX = img.width;
-    dimY = img.height;
+    var dimX = img.width;
+    var dimY = img.height;
 
-    for ( var i = x; i < x + Math.floor((dimX+8)/TILE_SIZE); i++){
-        for ( var j = y; j < y + Math.floor((dimY+8)/TILE_SIZE); j++){
+    var maxX = Math.floor((dimX+8)/TILE_SIZE);
+    var maxY= Math.floor((dimY+8)/TILE_SIZE);
+
+    for ( var i = x; i < x + maxX; i++){
+        for ( var j = y ; j < y + maxY; j++){
             //console.log(getTile(i,j,1,map));
-            if ( getTile(i,j,1,map).differentTile != undefined || getTile(i,j,2,map) != undefined ) return false;
+            if (getTile(i,j,1,map) == undefined) return false;
+            if ( /*j <= y + Math.floor(maxY/4) &&*/ getTile(i,j,2,map) != undefined ) return false;
+            if (  getTile(i,j,1,map).differentTile != undefined  ) return false;
         }
     }
     for ( var i = x; i < x + Math.ceil(dimX/TILE_SIZE); i++) {
@@ -208,13 +213,13 @@ function checkBG(n, bg) {
 function generateXLDetails(grid) {
     for ( var i = 0; i < WIDTH / TILE_SIZE; i++ ) {
         for ( var j = 0; j < HEIGHT / TILE_SIZE; j++ ) {
-            if (Math.random() > 0.99 )
+            if (Math.random() > 0.1 )
             {
                 var n = parseInt(getRandomDec(TILE_TYPES[getTile(i,j,0,grid)]));
                 var img = new Image();
                 img.src = 'sprites/sprites2/tile'+(n)+'.png';
-                isDrawable(img,i,j,grid)
-                console.log(n);
+                isDrawable(img,i,j,grid);
+                //console.log(n);
 
             }
         }
@@ -313,7 +318,7 @@ $(document).ready(function() {
             }
         }
     }
-    imgs.forEach(function(e){
+    imgs.reverse().forEach(function(e){
         ctx.drawImage(e[0],e[1],e[2]);
     });
     },100)
