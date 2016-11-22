@@ -213,7 +213,7 @@ function checkBG(n, bg) {
 function generateXLDetails(grid) {
     for ( var i = 0; i < WIDTH / TILE_SIZE; i++ ) {
         for ( var j = 0; j < HEIGHT / TILE_SIZE; j++ ) {
-            if (Math.random() > 0.1 )
+            if (Math.random() > 0.9 )
             {
                 var n = parseInt(getRandomDec(TILE_TYPES[getTile(i,j,0,grid)]));
                 var img = new Image();
@@ -285,20 +285,54 @@ function drawMap(map) {
 
 //CONF CONSTS
 TILE_SIZE = 16;
-TILE_TYPES = [
+/*TILE_TYPES = [
     "water2",
     "water",
     "grass",
     //"rock",
     //"snow"
-];
+];*/
+
+function csvToArray (csv) {
+    var rows  = csv.split("\n");
+    return rows.map(function (row) {
+        return row.split(";");
+    });
+}
+
+TILE_TYPES = [];
+function generateTileTypes() {
+    $.get('bgtypes.csv', null, function(e){
+        var a = csvToArray(e);
+
+        var midElem = a[Math.floor(Math.random()*(a.length-2)+2)];
+        while (midElem[midElem.length-1] != 2 ) midElem = a[Math.floor(Math.random()*(a.length-2)+2)];
+
+        for (var j = 0; j<5; j++){
+            var s = Math.floor(Math.random()*(midElem.length-2));
+            var index = s;
+            for (var i = 0; i< midElem.length-2 ; i++){
+                s = (s+i)%(midElem.length-2);
+                if (midElem[s] == "VRAI") break;
+            }
+            //console.log(midElem,s,a[s+1][0]);
+            TILE_TYPES.push(midElem[0]);
+            midElem = a[s+1];
+        }
+
+
+    });
+}
+generateTileTypes();
+
 /*TILE_TYPES = [
     backgrounds[Math.floor(Math.random()*backgrounds.length)],
-    "water4",
+    backgrounds[Math.floor(Math.random()*backgrounds.length)],
     backgrounds[Math.floor(Math.random()*backgrounds.length)],
     backgrounds[Math.floor(Math.random()*backgrounds.length)],
     backgrounds[Math.floor(Math.random()*backgrounds.length)]
-];*/
+];
+*/
 console.log(TILE_TYPES);
 WIDTH = 800;
 HEIGHT = 800;
@@ -308,7 +342,9 @@ $(document).ready(function() {
      map = generateMap();
     drawMap(map);
     window.setTimeout(function(){
-   // generateXLDetails(map);
+        console.log(TILE_TYPES);
+
+         generateXLDetails(map);
     },100);
 
     window.setTimeout(function(){
@@ -325,7 +361,7 @@ $(document).ready(function() {
         }
     }
     imgs.reverse().forEach(function(e){
-   //     ctx.drawImage(e[0],e[1],e[2]);
+        ctx.drawImage(e[0],e[1],e[2]);
     });
     },100)
 

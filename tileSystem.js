@@ -280,7 +280,6 @@ var borderTiles =
         //"water-grass": [45,25],
         "snow1-*": [19,15],
         "desert2-*": [1,32],
-        "water-water2": [42,25],
         "water2-*": [39,25],
         "water3-*": [62,25],
         "water4-*": [66,25],
@@ -296,7 +295,7 @@ var borderTiles =
         "*-grass": [4,15],
         "*-grass2": [7,15],
         "*-bgrass2": [10,15],
-        //"*-$": [10,32]
+        "*-$": [10,32]
     }
 };
 
