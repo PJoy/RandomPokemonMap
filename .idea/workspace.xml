@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11ab5041-5857-458d-b512-d55102a9f2c7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/therealcodeV5.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/decorationgenerator.numbers" afterPath="$PROJECT_DIR$/decorationgenerator.numbers" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/decoration.csv" afterPath="$PROJECT_DIR$/decoration.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/therealcodeV4.js" afterPath="$PROJECT_DIR$/therealcodeV4.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/therealcodeV5.js" afterPath="$PROJECT_DIR$/therealcodeV5.js" />
     </list>
     <ignored path="FRKTL.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,11 +34,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="therealcodeV5.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="therealcodeV5.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/therealcodeV5.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="52" column="39" selection-start-line="52" selection-start-column="39" selection-end-line="52" selection-end-column="39" />
+            <state relative-caret-position="270">
+              <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
               <folding>
                 <element signature="n#!!doc;n#generateNoiseMap#0" expanded="false" />
               </folding>
@@ -51,11 +46,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="therealcodeV4.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="therealcodeV4.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/therealcodeV4.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+            <state relative-caret-position="120">
+              <caret line="45" column="31" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="31" />
               <folding>
                 <element signature="n#!!block;n#checkBG#0" expanded="false" />
               </folding>
@@ -310,12 +305,12 @@
       <workItem from="1479840902113" duration="3121000" />
       <workItem from="1479902794400" duration="72000" />
       <workItem from="1479903796668" duration="246000" />
-      <workItem from="1479997541170" duration="6757000" />
+      <workItem from="1479997541170" duration="8018000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="155250000" />
+    <option name="totallyTimeSpent" value="156511000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -642,22 +637,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/therealcodeV4.js">
+    <entry file="file://$PROJECT_DIR$/therealcodeV5.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+        <state relative-caret-position="270">
+          <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
           <folding>
-            <element signature="n#!!block;n#checkBG#0" expanded="false" />
+            <element signature="n#!!doc;n#generateNoiseMap#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/therealcodeV5.js">
+    <entry file="file://$PROJECT_DIR$/therealcodeV4.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="52" column="39" selection-start-line="52" selection-start-column="39" selection-end-line="52" selection-end-column="39" />
+        <state relative-caret-position="120">
+          <caret line="45" column="31" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="31" />
           <folding>
-            <element signature="n#!!doc;n#generateNoiseMap#0" expanded="false" />
+            <element signature="n#!!block;n#checkBG#0" expanded="false" />
           </folding>
         </state>
       </provider>
