@@ -363,6 +363,7 @@ $(document).ready(function() {
     imgs.reverse().forEach(function(e){
         ctx.drawImage(e[0],e[1],e[2]);
     });
-    },100)
+    },100);
+
 
 });
