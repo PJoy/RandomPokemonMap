@@ -347,7 +347,7 @@ for (var tileName in backgroundTiles){
 for (var borderType in borderTiles.type){
     if ( !borderType.includes('*') ){
         var baseTileType = 'water3';
-        console.log(baseTileType);
+        //console.log(baseTileType);
         for ( var dir in borderTiles.coords){
             sprites[borderType+dir] = {
                 dim: [1, 1, 2],
