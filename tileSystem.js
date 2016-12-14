@@ -295,7 +295,7 @@ var borderTiles =
         "*-grass": [4,15],
         "*-grass2": [7,15],
         "*-bgrass2": [10,15],
-        "*-$": [10,32]
+        //"*-$": [10,32]
     }
 };
 
@@ -346,7 +346,7 @@ for (var tileName in backgroundTiles){
 
 for (var borderType in borderTiles.type){
     if ( !borderType.includes('*') ){
-        var baseTileType = 'water3';
+        var baseTileType = borderType.split('-')[0];
         //console.log(baseTileType);
         for ( var dir in borderTiles.coords){
             sprites[borderType+dir] = {
@@ -465,7 +465,7 @@ function drawTile(x, y, tile) {
                 sprite.dim[0] * TILE_SIZE, sprite.dim[1] * TILE_SIZE );
         }
     } else {
-        console.log('tile '+ tile + ' doesn\'t exist !')
+        //console.log('tile '+ tile + ' doesn\'t exist !')
     }
 }
 

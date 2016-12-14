@@ -56,13 +56,14 @@ function generateNoiseMap(seed, width, height, factor = 3) {
     return map;
 }
 
-var size = 300;
+var size = 200;
 TILE_SIZE = 16;
 WIDTH = TILE_SIZE * size;
 HEIGHT = TILE_SIZE * size;
 
 $(document).ready(function() {
-    var random = false;
+    var random = true;
+    var bgMap = [];
 
     if (random){
         map = generateNoiseMap(Math.random(), size, size, 2);
@@ -112,11 +113,26 @@ $(document).ready(function() {
                 }
             }
 
+            setTile(2*i,2*j,0,bgMap,type);
+            setTile(2*i+1,2*j+1,0,bgMap,type);
+            setTile(2*i,2*j+1,0,bgMap,type);
+            setTile(2*i+1,2*j,0,bgMap,type);
 
-            drawTile(2 * i, 2 * j, type);
+            /*drawTile(2 * i, 2 * j, type);
             drawTile(2 * i + 1, 2 * j + 1, type);
             drawTile(2 * i, 2 * j + 1, type);
-            drawTile(2 * i + 1, 2 * j, type)
+            drawTile(2 * i + 1, 2 * j, type)*/
+        }
+    }
+
+    generateBorders(bgMap);
+
+    for (var i = 0; i < size; i++) {
+        for (var j = 0; j < size; j++) {
+            drawTile(i,j,bgMap[i+j*size]);
+            var tileObject = bgMap[i+j*size+size*size];
+            var tile = tileObject.tile + '-' + tileObject.differentTile + tileObject.dir;
+            drawTile(i,j,tile);
         }
     }
 
