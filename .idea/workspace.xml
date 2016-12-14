@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11ab5041-5857-458d-b512-d55102a9f2c7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/therealcodeV5.js" afterPath="$PROJECT_DIR$/therealcodeV5.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tileSystem.js" afterPath="$PROJECT_DIR$/tileSystem.js" />
     </list>
@@ -36,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="therealcodeV5.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="therealcodeV5.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/therealcodeV5.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="840">
-              <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
+            <state relative-caret-position="45">
+              <caret line="111" column="52" selection-start-line="111" selection-start-column="52" selection-end-line="111" selection-end-column="52" />
               <folding>
                 <element signature="n#!!doc;n#generateNoiseMap#0" expanded="false" />
               </folding>
@@ -48,11 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tileSystem.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="tileSystem.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tileSystem.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="348" column="50" selection-start-line="348" selection-start-column="50" selection-end-line="348" selection-end-column="50" />
+            <state relative-caret-position="375">
+              <caret line="484" column="35" selection-start-line="484" selection-start-column="35" selection-end-line="484" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -61,8 +60,8 @@
       <file leaf-file-name="therealcodeV4.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/therealcodeV4.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="272" column="13" selection-start-line="272" selection-start-column="13" selection-end-line="272" selection-end-column="13" />
+            <state relative-caret-position="491">
+              <caret line="281" column="0" selection-start-line="279" selection-start-column="0" selection-end-line="281" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -308,12 +307,12 @@
       <workItem from="1479997541170" duration="8018000" />
       <workItem from="1480960176915" duration="1460000" />
       <workItem from="1481286447329" duration="3000" />
-      <workItem from="1481642918437" duration="8183000" />
+      <workItem from="1481642918437" duration="10487000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="166157000" />
+    <option name="totallyTimeSpent" value="168461000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -609,6 +608,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="48" selection-start-line="21" selection-start-column="48" selection-end-line="21" selection-end-column="48" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/therealcodeV3.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="795">
@@ -621,37 +630,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/therealcodeV4.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="272" column="13" selection-start-line="272" selection-start-column="13" selection-end-line="272" selection-end-column="13" />
+        <state relative-caret-position="491">
+          <caret line="281" column="0" selection-start-line="279" selection-start-column="0" selection-end-line="281" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tileSystem.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="484" column="35" selection-start-line="484" selection-start-column="35" selection-end-line="484" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/therealcodeV5.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
+        <state relative-caret-position="45">
+          <caret line="111" column="52" selection-start-line="111" selection-start-column="52" selection-end-line="111" selection-end-column="52" />
           <folding>
             <element signature="n#!!doc;n#generateNoiseMap#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="48" selection-start-line="21" selection-start-column="48" selection-end-line="21" selection-end-column="48" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tileSystem.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="348" column="50" selection-start-line="348" selection-start-column="50" selection-end-line="348" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>

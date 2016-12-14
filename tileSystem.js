@@ -409,28 +409,28 @@ for (var range in trees){
 }
 
 /*iD = 0;
-decorationCSV.split(';;').forEach(function(line){
-    iD++;
-    var parsed = line.split(';');
-    var start = [
-        parseInt(parsed[0]),
-        parseInt(parsed[1])
-    ];
-    var dim = [
-        parseInt(parsed[2]),
-        parseInt(parsed[3])
-    ];
+ decorationCSV.split(';;').forEach(function(line){
+ iD++;
+ var parsed = line.split(';');
+ var start = [
+ parseInt(parsed[0]),
+ parseInt(parsed[1])
+ ];
+ var dim = [
+ parseInt(parsed[2]),
+ parseInt(parsed[3])
+ ];
 
-    if (parsed[4]) sprites['grassDecoration'+iD] = {dim:dim,start:start};
-    if (parsed[5]) sprites['savanahDecoration'+iD] = {dim:dim,start:start};
-    if (parsed[6]) sprites['desertDecoration'+iD] = {dim:dim,start:start};
-    if (parsed[7]) sprites['swampDecoration'+iD] = {dim:dim,start:start};
-    if (parsed[8]) sprites['beachDecoration'+iD] = {dim:dim,start:start};
-    if (parsed[9]) sprites['snowDecoration'+iD] = {dim:dim,start:start};
-    if (parsed[10]) sprites['lavaDecoration'+iD] = {dim:dim,start:start}
+ if (parsed[4]) sprites['grassDecoration'+iD] = {dim:dim,start:start};
+ if (parsed[5]) sprites['savanahDecoration'+iD] = {dim:dim,start:start};
+ if (parsed[6]) sprites['desertDecoration'+iD] = {dim:dim,start:start};
+ if (parsed[7]) sprites['swampDecoration'+iD] = {dim:dim,start:start};
+ if (parsed[8]) sprites['beachDecoration'+iD] = {dim:dim,start:start};
+ if (parsed[9]) sprites['snowDecoration'+iD] = {dim:dim,start:start};
+ if (parsed[10]) sprites['lavaDecoration'+iD] = {dim:dim,start:start}
 
 
-});*/
+ });*/
 
 /**
  * X = 0 --> left
@@ -451,9 +451,9 @@ function drawTile(x, y, tile) {
     if (sprite != undefined){
         if ( sprite.dim[2] == undefined ){
             ctx.drawImage(tileSheet, sprite.start[0] * TILE_SIZE, sprite.start[1] * TILE_SIZE,
-            sprite.dim[0] * TILE_SIZE, sprite.dim[1] * TILE_SIZE,
-            x * TILE_SIZE, y * TILE_SIZE,
-            sprite.dim[0] * TILE_SIZE, sprite.dim[1] * TILE_SIZE );
+                sprite.dim[0] * TILE_SIZE, sprite.dim[1] * TILE_SIZE,
+                x * TILE_SIZE, y * TILE_SIZE,
+                sprite.dim[0] * TILE_SIZE, sprite.dim[1] * TILE_SIZE );
         } else {
             ctx.drawImage(tileSheet, sprite.bg[0] * TILE_SIZE, sprite.bg[1] * TILE_SIZE,
                 sprite.dim[0] * TILE_SIZE, sprite.dim[1] * TILE_SIZE,
@@ -475,46 +475,49 @@ function getBorderDirections(x,y,grid) {
     var center = getTile(x,y,0,grid);
     var dir = '';
     var differentTile;
-
-    if (center != getTile(x,y-1,0,grid) && getTile(x,y-1,0,grid) != undefined){
-        differentTile = getTile(x,y-1,0,grid);
-        dir += 'N';
-        if (center != getTile(x-1,y,0,grid) && getTile(x-1,y,0,grid) != undefined){
-            dir += '+W';
+    try {
+        if ( ( center.type != getTile(x,y-1,0,grid).type || center.level != getTile(x,y-1,0,grid).level ) && getTile(x,y-1,0,grid).type != undefined){
+            differentTile = getTile(x,y-1,0,grid).type;
+            dir += 'N';
+            if ( ( center.type != getTile(x-1,y,0,grid).type || center.level != getTile(x-1,y,0,grid).level ) && getTile(x-1,y,0,grid).type != undefined){
+                dir += '+W';
+            }
+            if ( ( center.type != getTile(x+1,y,0,grid).type || center.level != getTile(x+1,y,0,grid).level ) && getTile(x+1,y,0,grid).type != undefined){
+                dir += '+E'
+            }
+        } else if ( ( center.type != getTile(x,y+1,0,grid).type || center.level != getTile(x,y+1,0,grid).level ) && getTile(x,y+1,0,grid).type != undefined){
+            differentTile = getTile(x,y+1,0,grid).type;
+            dir += 'S';
+            if ( ( center.type != getTile(x-1,y,0,grid).type || center.level != getTile(x-1,y,0,grid).level ) && getTile(x-1,y,0,grid).type != undefined){
+                dir += '+W';
+            }
+            if ( ( center.type != getTile(x+1,y,0,grid).type || center.level != getTile(x+1,y,0,grid).level ) && getTile(x+1,y,0,grid).type != undefined){
+                dir += '+E'
+            }
+        } else if ( ( center.type != getTile(x-1,y,0,grid).type || center.level != getTile(x-1,y,0,grid).level ) && getTile(x-1,y,0,grid).type != undefined){
+            differentTile = getTile(x-1,y,0,grid).type;
+            dir += 'W'
+        } else if ( ( center.type != getTile(x+1,y,0,grid).type || center.level != getTile(x+1,y,0,grid).level ) && getTile(x+1,y,0,grid).type != undefined){
+            differentTile = getTile(x+1,y,0,grid).type;
+            dir += 'E'
+        } else if ( ( center.type != getTile(x-1,y-1,0,grid).type || center.level != getTile(x-1,y-1,0,grid).level ) && getTile(x-1,y-1,0,grid).type != undefined){
+            differentTile = getTile(x-1,y-1,0,grid).type;
+            dir = 'NW';
+        } else if ( ( center.type != getTile(x+1,y-1,0,grid).type || center.level != getTile(x+1,y-1,0,grid).level ) && getTile(x+1,y-1,0,grid).type != undefined){
+            differentTile = getTile(x+1,y-1,0,grid).type;
+            dir = 'NE';
+        } else if ( ( center.type != getTile(x-1,y+1,0,grid).type || center.level != getTile(x-1,y+1,0,grid).level ) && getTile(x-1,y+1,0,grid).type != undefined){
+            differentTile = getTile(x-1,y+1,0,grid).type;
+            dir = 'SW';
+        } else if ( ( center.type != getTile(x+1,y+1,0,grid).type || center.level != getTile(x+1,y+1,0,grid).level ) && getTile(x+1,y+1,0,grid).type != undefined) {
+            differentTile = getTile(x+1,y+1,0,grid).type;
+            dir = 'SE';
         }
-        if (center != getTile(x+1,y,0,grid) && getTile(x+1,y,0,grid) != undefined){
-            dir += '+E'
-        }
-    } else if (center != getTile(x,y+1,0,grid) && getTile(x,y+1,0,grid) != undefined){
-        differentTile = getTile(x,y+1,0,grid);
-        dir += 'S';
-        if (center != getTile(x-1,y,0,grid) && getTile(x-1,y,0,grid) != undefined){
-            dir += '+W';
-        }
-        if (center != getTile(x+1,y,0,grid) && getTile(x+1,y,0,grid) != undefined){
-            dir += '+E'
-        }
-    } else if (center != getTile(x-1,y,0,grid) && getTile(x-1,y,0,grid) != undefined){
-        differentTile = getTile(x-1,y,0,grid);
-        dir += 'W'
-    } else if (center != getTile(x+1,y,0,grid) && getTile(x+1,y,0,grid) != undefined){
-        differentTile = getTile(x+1,y,0,grid);
-        dir += 'E'
-    } else if (center != getTile(x-1,y-1,0,grid) && getTile(x-1,y-1,0,grid) != undefined){
-        differentTile = getTile(x-1,y-1,0,grid);
-        dir = 'NW';
-    } else if (center != getTile(x+1,y-1,0,grid) && getTile(x+1,y-1,0,grid) != undefined){
-        differentTile = getTile(x+1,y-1,0,grid);
-        dir = 'NE';
-    } else if (center != getTile(x-1,y+1,0,grid) && getTile(x-1,y+1,0,grid) != undefined){
-        differentTile = getTile(x-1,y+1,0,grid);
-        dir = 'SW';
-    } else if (center != getTile(x+1,y+1,0,grid) && getTile(x+1,y+1,0,grid) != undefined) {
-        differentTile = getTile(x+1,y+1,0,grid);
-        dir = 'SE';
+    } catch (err){
+        //console.log(err)
     }
 
-    return {dir:dir, tile:getTile(x,y,0,grid), differentTile:differentTile};
+    return {dir:dir, tile:getTile(x,y,0,grid).type, differentTile:differentTile};
 }
 
 function generateBorders(grid) {

@@ -63,7 +63,7 @@ HEIGHT = TILE_SIZE * size;
 
 $(document).ready(function() {
     var random = true;
-    var bgMap = [];
+    bgMap = [];
 
     if (random){
         map = generateNoiseMap(Math.random(), size, size, 2);
@@ -76,12 +76,14 @@ $(document).ready(function() {
     for (var i = 0; i < size; i++) {
         for (var j = 0; j < size; j++) {
             var type = '';
+            var level = 0;
             // set tile type according to height
             // height = 0 ==> below sea level
             // height = 1 ==> "normal" level
             // height = 2 ==> mountain level
             var pointHeight = map[i + j * size];
             if ( pointHeight < 0.3 ){
+                level = -1;
                 pointHeight *= 1/0.3;
                 if ( pointHeight < 0.35 ){
                     type = 'sea3';
@@ -94,6 +96,7 @@ $(document).ready(function() {
                 }
             } else if (pointHeight < 0.7 ) {
                 // another map is used here to create variations in "normal" level
+                level = 0;
                 if (map2[i + j * size] < 0.25) {
                     type = 'desert1';
                 } else if (map2[i + j * size] < 0.5) {
@@ -106,17 +109,18 @@ $(document).ready(function() {
             } else {
                 pointHeight -= 0.7;
                 pointHeight *= 1/0.3;
-                if ( pointHeight < 0.5 ){
+                level = 1 + Math.floor(pointHeight*2);
+                if ( pointHeight < 0.7 ){
                     type = 'rock';
                 } else {
                     type = 'snow';
                 }
             }
 
-            setTile(2*i,2*j,0,bgMap,type);
-            setTile(2*i+1,2*j+1,0,bgMap,type);
-            setTile(2*i,2*j+1,0,bgMap,type);
-            setTile(2*i+1,2*j,0,bgMap,type);
+            setTile(2*i,2*j,0,bgMap,{type: type, level: level});
+            setTile(2*i+1,2*j+1,0,bgMap,{type: type, level: level});
+            setTile(2*i,2*j+1,0,bgMap,{type: type, level: level});
+            setTile(2*i+1,2*j,0,bgMap,{type: type, level: level});
 
             /*drawTile(2 * i, 2 * j, type);
             drawTile(2 * i + 1, 2 * j + 1, type);
@@ -129,11 +133,39 @@ $(document).ready(function() {
 
     for (var i = 0; i < size; i++) {
         for (var j = 0; j < size; j++) {
-            drawTile(i,j,bgMap[i+j*size]);
-            var tileObject = bgMap[i+j*size+size*size];
-            var tile = tileObject.tile + '-' + tileObject.differentTile + tileObject.dir;
-            drawTile(i,j,tile);
+            drawTile(i,j,bgMap[i+j*size].type);
+            //var tileObject = bgMap[i+j*size+size*size];
+            //var tile = tileObject.tile + '-' + tileObject.differentTile + tileObject.dir;
+
+            var bn = getBorderName(getTile(i,j,1,bgMap));
+            if ( bn != undefined ) drawTile(i, j, bn);
+
+            drawTile(i,j,bn);
         }
     }
 
 });
+
+function getBorderName(bTile){
+    var z1 = bTile.tile;
+    var z2 = bTile.differentTile;
+    var dir = bTile.dir;
+
+    //console.log(z1, z2, dir);
+    if (z1 == undefined || z2 == undefined || dir == undefined) return;
+
+    //particular cases
+    /*if (z1+'-'+z2 == 'sea1-sea2') return;
+    if (z1+'-'+z2 == 'sea2-sea3') return;
+    if (z1+'-'+z2 == 'grass-sand') return;
+    if (z1+'-'+z2 == 'sea2-sea1') return z1+'-'+z2+dir;
+    if (z1+'-'+z2 == 'sea3-sea2') return z1+'-'+z2+dir;
+    if (z1+'-'+z2 == 'sand-grass') return z1+'-'+z2+dir;*/
+    //if (z2 > z1) return;
+
+    //particular cases UPDATED
+    //if (z2] == 'water') return z2]+'-'+z1]+dir;
+
+    //console.log(z1);
+    return z1+'-'+z2+dir;
+}
