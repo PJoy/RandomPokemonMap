@@ -468,3 +468,62 @@ function drawTile(x, y, tile) {
         console.log('tile '+ tile + ' doesn\'t exist !')
     }
 }
+
+/** border stuff **/
+
+function getBorderDirections(x,y,grid) {
+    var center = getTile(x,y,0,grid);
+    var dir = '';
+    var differentTile;
+
+    if (center != getTile(x,y-1,0,grid) && getTile(x,y-1,0,grid) != undefined){
+        differentTile = getTile(x,y-1,0,grid);
+        dir += 'N';
+        if (center != getTile(x-1,y,0,grid) && getTile(x-1,y,0,grid) != undefined){
+            dir += '+W';
+        }
+        if (center != getTile(x+1,y,0,grid) && getTile(x+1,y,0,grid) != undefined){
+            dir += '+E'
+        }
+    } else if (center != getTile(x,y+1,0,grid) && getTile(x,y+1,0,grid) != undefined){
+        differentTile = getTile(x,y+1,0,grid);
+        dir += 'S';
+        if (center != getTile(x-1,y,0,grid) && getTile(x-1,y,0,grid) != undefined){
+            dir += '+W';
+        }
+        if (center != getTile(x+1,y,0,grid) && getTile(x+1,y,0,grid) != undefined){
+            dir += '+E'
+        }
+    } else if (center != getTile(x-1,y,0,grid) && getTile(x-1,y,0,grid) != undefined){
+        differentTile = getTile(x-1,y,0,grid);
+        dir += 'W'
+    } else if (center != getTile(x+1,y,0,grid) && getTile(x+1,y,0,grid) != undefined){
+        differentTile = getTile(x+1,y,0,grid);
+        dir += 'E'
+    } else if (center != getTile(x-1,y-1,0,grid) && getTile(x-1,y-1,0,grid) != undefined){
+        differentTile = getTile(x-1,y-1,0,grid);
+        dir = 'NW';
+    } else if (center != getTile(x+1,y-1,0,grid) && getTile(x+1,y-1,0,grid) != undefined){
+        differentTile = getTile(x+1,y-1,0,grid);
+        dir = 'NE';
+    } else if (center != getTile(x-1,y+1,0,grid) && getTile(x-1,y+1,0,grid) != undefined){
+        differentTile = getTile(x-1,y+1,0,grid);
+        dir = 'SW';
+    } else if (center != getTile(x+1,y+1,0,grid) && getTile(x+1,y+1,0,grid) != undefined) {
+        differentTile = getTile(x+1,y+1,0,grid);
+        dir = 'SE';
+    }
+
+    return {dir:dir, tile:getTile(x,y,0,grid), differentTile:differentTile};
+}
+
+function generateBorders(grid) {
+
+    for ( var i = 0; i < WIDTH / TILE_SIZE; i++ ) {
+        for ( var j = 0; j < HEIGHT / TILE_SIZE; j++ ) {
+            setTile(i, j, 1, grid, getBorderDirections(i,j,grid));
+        }
+    }
+
+    return grid;
+}

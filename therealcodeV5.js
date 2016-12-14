@@ -56,42 +56,63 @@ function generateNoiseMap(seed, width, height, factor = 3) {
     return map;
 }
 
+var size = 300;
 TILE_SIZE = 16;
+WIDTH = TILE_SIZE * size;
+HEIGHT = TILE_SIZE * size;
 
 $(document).ready(function() {
-    var random = true;
+    var random = false;
 
     if (random){
-        map = generateNoiseMap(Math.random(), 25, 25);
-        map2 = generateNoiseMap(Math.random(), 25, 25, 1);
+        map = generateNoiseMap(Math.random(), size, size, 2);
+        map2 = generateNoiseMap(Math.random(), size, size, 5);
     } else {
-        map = generateNoiseMap(0.1, 25, 25);
-        map2 = generateNoiseMap(0.2, 25, 25, 10);
+        map = generateNoiseMap(0.1, size, size, 2);
+        map2 = generateNoiseMap(0.2, size, size, 5);
     }
 
-    for (var i = 0; i < 25; i++) {
-        for (var j = 0; j < 25; j++) {
-            var type = 'water';
+    for (var i = 0; i < size; i++) {
+        for (var j = 0; j < size; j++) {
+            var type = '';
             // set tile type according to height
             // height = 0 ==> below sea level
             // height = 1 ==> "normal" level
             // height = 2 ==> mountain level
-            if (map[i + j * 25] > 0.3) {
+            var pointHeight = map[i + j * size];
+            if ( pointHeight < 0.3 ){
+                pointHeight *= 1/0.3;
+                if ( pointHeight < 0.35 ){
+                    type = 'sea3';
+                } else if ( pointHeight < 0.6 ){
+                    type = 'sea2';
+                } else if ( pointHeight < 0.75 ){
+                    type = 'sea1';
+                } else {
+                    type = 'sand';
+                }
+            } else if (pointHeight < 0.7 ) {
                 // another map is used here to create variations in "normal" level
-                if (map2[i + j * 25] < 0.25) {
+                if (map2[i + j * size] < 0.25) {
                     type = 'desert1';
-                } else if (map2[i + j * 25] < 0.5) {
+                } else if (map2[i + j * size] < 0.5) {
                     type = 'savanah';
-                } else if (map2[i + j * 25] < 0.9) {
+                } else if (map2[i + j * size] < 0.9) {
                     type = 'grass';
                 } else {
                     type = 'swamp';
                 }
+            } else {
+                pointHeight -= 0.7;
+                pointHeight *= 1/0.3;
+                if ( pointHeight < 0.5 ){
+                    type = 'rock';
+                } else {
+                    type = 'snow';
+                }
             }
 
-            if (map[i + j * 25] > 0.8) {
-                type = 'rock';
-            }
+
             drawTile(2 * i, 2 * j, type);
             drawTile(2 * i + 1, 2 * j + 1, type);
             drawTile(2 * i, 2 * j + 1, type);
