@@ -20,15 +20,14 @@ function generateNoiseMap(seed, width, height, factor = 3) {
                 *(noise.perlin2(x/100*factor , y/100*factor )+1)
                 *(noise.perlin2(x/40*factor , y/40*factor)+1)
                 /2);
-            if (value < 0.1) value = 0.1;
-
+            //if (value < 0.1) value = 0.1;
 
             value *= 256;
             var cell = (x + y * canvas.width) * 4;
             data[cell ] = value;
             data[cell + 1] = value;
             data[cell + 2] = value;
-            data[cell] += Math.max(0, (25 - value) * 8);
+            //data[cell] += Math.max(0, (25 - value) * 8);
             data[cell + 3] = 255; // alpha.
         }
     }
@@ -62,7 +61,7 @@ WIDTH = TILE_SIZE * size;
 HEIGHT = TILE_SIZE * size;
 
 $(document).ready(function() {
-    var random = true;
+    var random = false;
     bgMap = [];
 
     if (random){
@@ -109,11 +108,12 @@ $(document).ready(function() {
             } else {
                 pointHeight -= 0.7;
                 pointHeight *= 1/0.3;
-                level = 1 + Math.floor(pointHeight*2);
+                level = 1 + Math.floor(pointHeight);
                 if ( pointHeight < 0.7 ){
                     type = 'rock';
                 } else {
                     type = 'snow';
+                    level +=1 ;
                 }
             }
 
@@ -147,6 +147,7 @@ $(document).ready(function() {
 });
 
 function getBorderName(bTile){
+    //console.log(bTile.differentLevel);
     var z1 = bTile.tile;
     var z2 = bTile.differentTile;
     var dir = bTile.dir;
@@ -155,8 +156,12 @@ function getBorderName(bTile){
     if (z1 == undefined || z2 == undefined || dir == undefined) return;
 
     //particular cases
-    /*if (z1+'-'+z2 == 'sea1-sea2') return;
-    if (z1+'-'+z2 == 'sea2-sea3') return;
+    if (z1+'-'+z2 == 'grass-sand') return;
+    if (z1+'-'+z2 == 'grass-savanah') return;
+    if (z1+'-'+z2 == 'grass-swamp') return;
+    if (z1+'-'+z2 == 'grass-rock') return;
+    if (z1+'-'+z2 == 'rock-snow') return;
+    /*if (z1+'-'+z2 == 'sea2-sea3') return;
     if (z1+'-'+z2 == 'grass-sand') return;
     if (z1+'-'+z2 == 'sea2-sea1') return z1+'-'+z2+dir;
     if (z1+'-'+z2 == 'sea3-sea2') return z1+'-'+z2+dir;
@@ -167,5 +172,5 @@ function getBorderName(bTile){
     //if (z2] == 'water') return z2]+'-'+z1]+dir;
 
     //console.log(z1);
-    return z1+'-'+z2+dir;
+    if (bTile.differentLevel == 1 || z1 !== z2) return z1+'-'+z2+dir;
 }

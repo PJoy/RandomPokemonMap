@@ -475,9 +475,11 @@ function getBorderDirections(x,y,grid) {
     var center = getTile(x,y,0,grid);
     var dir = '';
     var differentTile;
+    var differentLevel;
     try {
         if ( ( center.type != getTile(x,y-1,0,grid).type || center.level != getTile(x,y-1,0,grid).level ) && getTile(x,y-1,0,grid).type != undefined){
             differentTile = getTile(x,y-1,0,grid).type;
+            differentLevel = getTile(x,y,0,grid).level - getTile(x,y-1,0,grid).level;
             dir += 'N';
             if ( ( center.type != getTile(x-1,y,0,grid).type || center.level != getTile(x-1,y,0,grid).level ) && getTile(x-1,y,0,grid).type != undefined){
                 dir += '+W';
@@ -487,6 +489,7 @@ function getBorderDirections(x,y,grid) {
             }
         } else if ( ( center.type != getTile(x,y+1,0,grid).type || center.level != getTile(x,y+1,0,grid).level ) && getTile(x,y+1,0,grid).type != undefined){
             differentTile = getTile(x,y+1,0,grid).type;
+            differentLevel = getTile(x,y,0,grid).level - getTile(x,y+1,0,grid).level;
             dir += 'S';
             if ( ( center.type != getTile(x-1,y,0,grid).type || center.level != getTile(x-1,y,0,grid).level ) && getTile(x-1,y,0,grid).type != undefined){
                 dir += '+W';
@@ -496,28 +499,36 @@ function getBorderDirections(x,y,grid) {
             }
         } else if ( ( center.type != getTile(x-1,y,0,grid).type || center.level != getTile(x-1,y,0,grid).level ) && getTile(x-1,y,0,grid).type != undefined){
             differentTile = getTile(x-1,y,0,grid).type;
+            differentLevel = getTile(x,y,0,grid).level - getTile(x-1,y,0,grid).level;
             dir += 'W'
         } else if ( ( center.type != getTile(x+1,y,0,grid).type || center.level != getTile(x+1,y,0,grid).level ) && getTile(x+1,y,0,grid).type != undefined){
             differentTile = getTile(x+1,y,0,grid).type;
+            differentLevel = getTile(x,y,0,grid).level - getTile(x+1,y,0,grid).level;
+
             dir += 'E'
         } else if ( ( center.type != getTile(x-1,y-1,0,grid).type || center.level != getTile(x-1,y-1,0,grid).level ) && getTile(x-1,y-1,0,grid).type != undefined){
             differentTile = getTile(x-1,y-1,0,grid).type;
+            differentLevel = getTile(x,y,0,grid).level - getTile(x-1,y-1,0,grid).level;
             dir = 'NW';
         } else if ( ( center.type != getTile(x+1,y-1,0,grid).type || center.level != getTile(x+1,y-1,0,grid).level ) && getTile(x+1,y-1,0,grid).type != undefined){
             differentTile = getTile(x+1,y-1,0,grid).type;
+            differentLevel = getTile(x,y,0,grid).level - getTile(x+1,y-1,0,grid).level;
             dir = 'NE';
         } else if ( ( center.type != getTile(x-1,y+1,0,grid).type || center.level != getTile(x-1,y+1,0,grid).level ) && getTile(x-1,y+1,0,grid).type != undefined){
             differentTile = getTile(x-1,y+1,0,grid).type;
+            differentLevel = getTile(x,y,0,grid).level - getTile(x-1,y+1,0,grid).level;
             dir = 'SW';
         } else if ( ( center.type != getTile(x+1,y+1,0,grid).type || center.level != getTile(x+1,y+1,0,grid).level ) && getTile(x+1,y+1,0,grid).type != undefined) {
             differentTile = getTile(x+1,y+1,0,grid).type;
+            differentLevel = getTile(x,y,0,grid).level - getTile(x+1,y+1,0,grid).level;
+
             dir = 'SE';
         }
     } catch (err){
         //console.log(err)
     }
 
-    return {dir:dir, tile:getTile(x,y,0,grid).type, differentTile:differentTile};
+    return {dir:dir, tile:getTile(x,y,0,grid).type, differentTile:differentTile, differentLevel: differentLevel};
 }
 
 function generateBorders(grid) {
