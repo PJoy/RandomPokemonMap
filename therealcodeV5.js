@@ -12,50 +12,43 @@ function generateNoiseMap(seed, width, height, factor = 3) {
     var ctx = canvas.getContext('2d');
     var image = ctx.createImageData(width, height);
     var data = image.data;
-    var min = 99;
-    var max = 0;
-    var moy = 0;
+    var vals = [];
+    var vals2 = [];
     for (var x = 0; x < width; x++) {
         for (var y = 0; y < height; y++) {
 
             var value = Math.abs(
-                (noise.perlin2(x/200*factor , y/200*factor ))
-                //*(noise.perlin2(x/100*factor , y/100*factor ))
-                //*(noise.perlin2(x/40*factor , y/40*factor))
+                (noise.perlin2(x/200*factor , y/200*factor )+1)
+                *(noise.perlin2(x/100*factor , y/100*factor )+1)
+                *(noise.perlin2(x/40*factor , y/40*factor)+1)
                 );
 
-            if ( value < min) min = value;
-            if ( value > max) max = value;
-            moy += value;
+            vals.push(value);
         }
 
     }
 
-    moy /= width;
-    moy /= height;
+    var min = math.min(vals);
+    var max = math.max(vals);
+    var moy = math.mean(vals);
+    var std = math.std(vals);
+
 
     console.log('BEFORE');
     console.log('min : ' + min);
     console.log('max : ' + max);
     console.log('moy : ' + moy);
 
-    var min2 = 99;
-    var max2 = 0;
-    var moy2 = 0;
+    console.log('STD ', std);
 
     for (var x = 0; x < width; x++) {
         for (var y = 0; y < height; y++) {
 
-            var value = Math.abs(
-                (noise.perlin2(x/200*factor , y/200*factor ))
-                *(noise.perlin2(x/100*factor , y/100*factor ))
-                *(noise.perlin2(x/40*factor , y/40*factor))
-                );
+            value = ((vals[x + width*y])/std)/(max/std);
+
             //if (value < 0.1) value = 0.1;
 
-            if ( value < min2) min2 = value;
-            if ( value > max2) max2 = value;
-            moy2 += value;
+            vals2.push(value);
 
             value *= 256;
             var cell = (x + y * canvas.width) * 4;
@@ -67,13 +60,16 @@ function generateNoiseMap(seed, width, height, factor = 3) {
         }
     }
 
-    moy2 /= width;
-    moy2 /= height;
+    var min = math.min(vals2);
+    var max = math.max(vals2);
+    var moy = math.mean(vals2);
+    var std = math.std(vals2);
 
     console.log('AFTER');
-    console.log('min : ' + min2);
-    console.log('max : ' + max2);
-    console.log('moy : ' + moy2);
+    console.log('min : ' + min);
+    console.log('max : ' + max);
+    console.log('moy : ' + moy);
+    console.log('std : ' + std);
 
     ctx.fillColor = 'black';
     ctx.fillRect(0, 0, 100, 100);
@@ -98,7 +94,7 @@ function generateNoiseMap(seed, width, height, factor = 3) {
     return map;
 }
 
-var size = 200;
+var size = 300;
 TILE_SIZE = 16;
 WIDTH = TILE_SIZE * size;
 HEIGHT = TILE_SIZE * size;
@@ -136,23 +132,26 @@ $(document).ready(function() {
                 } else {
                     type = 'sand';
                 }
-            } else if (pointHeight < 0.7 ) {
+            } else if (pointHeight < 0.6 ) {
                 // another map is used here to create variations in "normal" level
                 level = 0;
-                if (map2[i + j * size] < 0.25) {
+                //type = 'grass';
+                if (map2[i + j * size] < 0.1) {
                     type = 'desert1';
-                } else if (map2[i + j * size] < 0.5) {
+                } else if (map2[i + j * size] < 0.2) {
                     type = 'savanah';
-                } else if (map2[i + j * size] < 0.9) {
+                } else if (map2[i + j * size] < 0.4) {
                     type = 'grass';
-                } else {
+                } else if (map2[i + j * size] < 0.55) {
                     type = 'swamp';
+                } else {
+                    type = "water4";
                 }
             } else {
                 pointHeight -= 0.7;
                 pointHeight *= 1/0.3;
-                level = 1 + Math.floor(pointHeight);
-                if ( pointHeight < 0.7 ){
+                level = 1 + Math.floor(pointHeight*2);
+                if ( pointHeight < 0.5 ){
                     type = 'rock';
                 } else {
                     type = 'snow';
