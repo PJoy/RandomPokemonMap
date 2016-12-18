@@ -12,15 +12,50 @@ function generateNoiseMap(seed, width, height, factor = 3) {
     var ctx = canvas.getContext('2d');
     var image = ctx.createImageData(width, height);
     var data = image.data;
+    var min = 99;
+    var max = 0;
+    var moy = 0;
     for (var x = 0; x < width; x++) {
         for (var y = 0; y < height; y++) {
 
             var value = Math.abs(
-                (noise.perlin2(x/200*factor , y/200*factor )+1)
-                *(noise.perlin2(x/100*factor , y/100*factor )+1)
-                *(noise.perlin2(x/40*factor , y/40*factor)+1)
-                /2);
+                (noise.perlin2(x/200*factor , y/200*factor ))
+                //*(noise.perlin2(x/100*factor , y/100*factor ))
+                //*(noise.perlin2(x/40*factor , y/40*factor))
+                );
+
+            if ( value < min) min = value;
+            if ( value > max) max = value;
+            moy += value;
+        }
+
+    }
+
+    moy /= width;
+    moy /= height;
+
+    console.log('BEFORE');
+    console.log('min : ' + min);
+    console.log('max : ' + max);
+    console.log('moy : ' + moy);
+
+    var min2 = 99;
+    var max2 = 0;
+    var moy2 = 0;
+
+    for (var x = 0; x < width; x++) {
+        for (var y = 0; y < height; y++) {
+
+            var value = Math.abs(
+                (noise.perlin2(x/200*factor , y/200*factor ))
+                *(noise.perlin2(x/100*factor , y/100*factor ))
+                *(noise.perlin2(x/40*factor , y/40*factor))
+                );
             //if (value < 0.1) value = 0.1;
+
+            if ( value < min2) min2 = value;
+            if ( value > max2) max2 = value;
+            moy2 += value;
 
             value *= 256;
             var cell = (x + y * canvas.width) * 4;
@@ -31,6 +66,14 @@ function generateNoiseMap(seed, width, height, factor = 3) {
             data[cell + 3] = 255; // alpha.
         }
     }
+
+    moy2 /= width;
+    moy2 /= height;
+
+    console.log('AFTER');
+    console.log('min : ' + min2);
+    console.log('max : ' + max2);
+    console.log('moy : ' + moy2);
 
     ctx.fillColor = 'black';
     ctx.fillRect(0, 0, 100, 100);
@@ -61,7 +104,7 @@ WIDTH = TILE_SIZE * size;
 HEIGHT = TILE_SIZE * size;
 
 $(document).ready(function() {
-    var random = false;
+    var random = true;
     bgMap = [];
 
     if (random){
